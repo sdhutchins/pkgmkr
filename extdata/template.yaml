@@ -1,0 +1,12 @@
+---
+pkg_name: "pkgtemp"
+description: "This is a template package."
+version: 0.1
+first_name: "Shaurita"
+last_name: "Hutchins"
+readme_md: True
+git: True
+check_pkg_name: True
+ci: "travis"
+license: "MIT"
+pkgdown: True
