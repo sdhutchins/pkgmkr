@@ -15,3 +15,8 @@ Imports:
     available,
     configr,
     usethis
+Suggests:
+    covr,
+    knitr,
+    rmarkdown,
+    testthat
