@@ -10,7 +10,8 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Depends:
-    openssl (>= 2.0.3)
+    openssl (>= 2.0.3),
+    pkgdown
 Imports:
     available,
     configr,
@@ -19,5 +20,4 @@ Suggests:
     covr,
     knitr,
     rmarkdown,
-    testthat,
-    pkgdown
+    testthat
