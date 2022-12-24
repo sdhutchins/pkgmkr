@@ -7,9 +7,9 @@
 write_config(path, config_data)
 }
 \arguments{
-\item{path}{DESCRIPTION.}
+\item{path}{character. The path to write the configuration file to.}
 
-\item{config_data}{DESCRIPTION.}
+\item{config_data}{list. The configuration data to write to the file.}
 }
 \description{
 Write configuration data to a file.
