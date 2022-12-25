@@ -3,11 +3,12 @@ language: R
 cache: packages
 warnings_are_errors: false
 cran: http://cran.rstudio.com
-
-r_packages:
-  - pkgdown
-
+r_github_packages:
+  - r-lib/pkgdown
+  - r-lib/covr
 r:
   - oldrel
   - release
   - devel
+after_success:
+  - Rscript -e 'covr::codecov()'

@@ -10,12 +10,13 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Depends:
-    openssl (>= 2.0.3),
-    pkgdown
+    openssl (>= 2.0.3)
 Imports:
     available,
     configr,
     usethis
+Remotes:
+    r-lib/pkgdown
 Suggests:
     covr,
     knitr,
