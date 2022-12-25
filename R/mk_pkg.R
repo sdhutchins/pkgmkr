@@ -4,10 +4,11 @@
 #'
 #' @param path character. The path to create the package at.
 #' @param author character. The name of the package author.
-#' @param git_username character. The username to use for Git and GitHub.
 #' @param email character. The email to use for Git and GitHub.
-#' @param readme_md logical. Whether to create a README file in markdown format.
 #' @param git logical. Whether to initialize a Git repository for the package.
+#' @param git_username character. The username to use for Git and GitHub.
+#' @param git_email character. The email to use for Git and GitHub.
+#' @param readme_md logical. Whether to create a README file in markdown format.
 #' @param check_pkg_name logical. Whether to check that the package name is available on CRAN.
 #' @param license character. The license to use for the package (either "MIT" or "GPL-3").
 #' @param pkgdown logical. Whether to create a pkgdown site for the package.

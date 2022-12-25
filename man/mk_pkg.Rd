@@ -28,6 +28,8 @@ mk_pkg(
 
 \item{git_username}{character. The username to use for Git and GitHub.}
 
+\item{git_email}{character. The email to use for Git and GitHub.}
+
 \item{readme_md}{logical. Whether to create a README file in markdown format.}
 
 \item{check_pkg_name}{logical. Whether to check that the package name is available on CRAN.}

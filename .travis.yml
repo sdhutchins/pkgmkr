@@ -5,7 +5,7 @@ warnings_are_errors: false
 cran: http://cran.rstudio.com
 install:
   - R -e 'install.packages("pak")'
-  - R -e 'pak::pkg_system_requirements("pkgdown", "ubuntu", "20.04")'
+  - R -e 'pak::pkg_system_requirements(c("pkgdown", "openssl", "available", "configr", "usethis", "testthat", "covr"), "ubuntu", "20.04")'
 r:
   - oldrel
   - release
