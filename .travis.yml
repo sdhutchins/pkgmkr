@@ -3,9 +3,9 @@ language: R
 cache: packages
 warnings_are_errors: false
 cran: http://cran.rstudio.com
-r_github_packages:
-  - r-lib/pkgdown
-  - r-lib/covr
+install:
+  - R -e 'install.packages("pak")'
+  - R -e 'pak::pkg_system_requirements("pkgdown", "ubuntu", "20.04")'
 r:
   - oldrel
   - release

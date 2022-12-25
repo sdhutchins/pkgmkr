@@ -15,10 +15,9 @@ Imports:
     available,
     configr,
     usethis
-Remotes:
-    r-lib/pkgdown
 Suggests:
     covr,
     knitr,
     rmarkdown,
-    testthat
+    testthat,
+    pkgdown
