@@ -60,7 +60,18 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of pkgmkr is to create an R package with one simple function.</p>
+<p><code>pkgmkr</code> aims to simplify the process of creating R packages by providing a single, straightforward function. It is designed to be user-friendly and to handle various package configurations, including optional Git integration, license selection, and more.</p>
+<div class="section level2">
+<h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
+</h2>
+<ul>
+<li>Easy-to-use function for package creation</li>
+<li>Optional Git repository initialization</li>
+<li>Customizable package metadata</li>
+<li>License selection</li>
+<li>README and <code>pkgdown</code> site generation .</li>
+</ul>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -69,19 +80,43 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pkgmkr"</span><span class="op">)</span></span></code></pre></div>
 <p>Currently, <code>pkgmkr</code> can only be installed using devtools.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"devtools"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Install pkgmkr from GitHub</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"sdhutchins/pkgmkr"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>This is a basic example of using this package.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">pkgmkr</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Load the pkgmkr library</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">pkgmkr</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># Define package metadata</span></span>
 <span><span class="va">au</span> <span class="op">&lt;-</span> <span class="st">"Shaurita Hutchins"</span></span>
 <span><span class="va">email</span> <span class="op">&lt;-</span> <span class="st">"sdh@gmail.com"</span></span>
 <span></span>
-<span><span class="fu"><a href="reference/mk_pkg.html">mk_pkg</a></span><span class="op">(</span>pkg_name <span class="op">=</span> <span class="st">"gghmm"</span>, author <span class="op">=</span> <span class="va">au</span>, email <span class="op">=</span> <span class="va">email</span>, git <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">git_username</span>, <span class="va">git_email</span>, readme_md <span class="op">=</span> <span class="cn">TRUE</span>, check_pkg_name <span class="op">=</span> <span class="cn">TRUE</span>, license <span class="op">=</span> <span class="st">"MIT"</span>, pkgdown <span class="op">=</span> <span class="st">"TRUE"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Create the package</span></span>
+<span><span class="fu"><a href="reference/mk_pkg.html">mk_pkg</a></span><span class="op">(</span></span>
+<span>  pkg_name <span class="op">=</span> <span class="st">"gghmm"</span>,</span>
+<span>  author <span class="op">=</span> <span class="va">au</span>,</span>
+<span>  email <span class="op">=</span> <span class="va">email</span>,</span>
+<span>  git <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  git_username <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  git_email <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  readme_md <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  check_pkg_name <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  license <span class="op">=</span> <span class="st">"MIT"</span>,</span>
+<span>  pkgdown <span class="op">=</span> <span class="st">"TRUE"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
+</h2>
+<p>Contributions are welcome! Please read the CONTRIBUTING.md for guidelines on how to contribute to this project.</p>
 </div>
 </div>
   </div>
@@ -128,7 +163,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
