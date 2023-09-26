@@ -4,13 +4,16 @@
 \alias{import_config}
 \title{Package Config}
 \usage{
-import_config(file = NULL, file_type = "yaml")
+import_config(path, file_type = "yaml")
 }
 \arguments{
-\item{file_type}{DESCRIPTION.}
+\item{path}{character. The path to the configuration file.}
 
-\item{path}{DESCRIPTION.}
+\item{file_type}{character. The file type of the configuration file (either "yaml" or "json").}
+}
+\value{
+A list containing the configuration data.
 }
 \description{
-FUNCTION_DESCRIPTION
+Import configuration data from a file.
 }
