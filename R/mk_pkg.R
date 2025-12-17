@@ -126,62 +126,116 @@ mk_pkg <- function(path, author, email, git = TRUE, git_username = NULL, git_ema
   # Check package name availability if requested
   if (check_pkg_name) {
     message("Checking package name availability on CRAN...")
-    available::available(name = pkg_name, browse = FALSE)
+    tryCatch(
+      available::available(name = pkg_name, browse = FALSE),
+      error = function(e) {
+        warning("Could not check package name availability: ", e$message, call. = FALSE)
+      }
+    )
   }
   
-  # Use the usethis::create_package function to create the package
-  usethis::create_package(path = path, rstudio = TRUE, open = FALSE)
+  # Track whether package directory was created for cleanup on error
+  pkg_created <- FALSE
+  
+  tryCatch({
+    # Use the usethis::create_package function to create the package
+    message("Creating package structure...")
+    usethis::create_package(path = path, rstudio = TRUE, open = FALSE)
+    pkg_created <- TRUE
 
-  # Parse the author's name into first and last name
-  author_parts <- parse_author_name(author)
+    # Parse the author's name into first and last name
+    author_parts <- parse_author_name(author)
 
-  # Use withr::local_dir instead of setwd to avoid changing user's working directory
-  withr::local_dir(path)
+    # Use withr::local_dir instead of setwd to avoid changing user's working directory
+    withr::local_dir(path)
 
-  # Use the usethis::use_description function to set the package's Authors@R field
-  usethis::use_description(fields = list(
-    `Authors@R` = paste0(
-      'person("', author_parts$first, '", "', author_parts$last, 
-      '", email = "', email, '", role = c("aut", "cre"))'
+    # Use the usethis::use_description function to set the package's Authors@R field
+    message("Setting up DESCRIPTION file...")
+    usethis::use_description(fields = list(
+      `Authors@R` = paste0(
+        'person("', author_parts$first, '", "', author_parts$last, 
+        '", email = "', email, '", role = c("aut", "cre"))'
+      )
+    ))
+
+    # If readme_md is TRUE, use the usethis::use_readme_md function to create a README file
+    if (readme_md) {
+      message("Creating README.md...")
+      tryCatch(
+        usethis::use_readme_md(),
+        error = function(e) {
+          warning("Failed to create README.md: ", e$message, call. = FALSE)
+        }
+      )
+    }
+
+    # Set up license
+    tryCatch(
+      setup_license(license, author),
+      error = function(e) {
+        warning("Failed to set up license: ", e$message, call. = FALSE)
+      }
     )
-  ))
 
-  # If readme_md is TRUE, use the usethis::use_readme_md function to create a README file in markdown format
-  if (readme_md) {
-    message("Creating README.md...")
-    usethis::use_readme_md()
-  }
+    # If git is TRUE, initialize Git repository
+    if (git) {
+      message("Initializing Git repository...")
+      tryCatch({
+        usethis::use_git()
+        
+        if (!is.null(git_username) && !is.null(git_email)) {
+          usethis::use_git_config(scope = "project", user.name = git_username, user.email = git_email)
+        }
+        
+        # Only attempt GitHub setup if credentials are available
+        tryCatch(
+          usethis::use_github(),
+          error = function(e) {
+            warning(
+              "Could not create GitHub repository. ",
+              "You may need to set up GitHub credentials. ",
+              "Error: ", e$message,
+              call. = FALSE
+            )
+          }
+        )
+      }, error = function(e) {
+        warning("Failed to initialize Git repository: ", e$message, call. = FALSE)
+      })
+    }
 
-  # Set up license
-  setup_license(license, author)
-
-  # If git is TRUE, use the usethis::use_git function to initialize a Git repository for the package
-  if (git) {
-    message("Initializing Git repository...")
-    usethis::use_git()
-    
-    if (!is.null(git_username) && !is.null(git_email)) {
-      usethis::use_git_config(scope = "project", user.name = git_username, user.email = git_email)
+    # If pkgdown is TRUE, set up pkgdown site
+    if (pkgdown) {
+      message("Setting up pkgdown site...")
+      tryCatch({
+        usethis::use_pkgdown()
+        pkgdown::build_site()
+      }, error = function(e) {
+        warning("Failed to build pkgdown site: ", e$message, call. = FALSE)
+      })
     }
     
-    usethis::use_github()
-  }
-
-  # If pkgdown is TRUE, use the usethis::use_pkgdown function to set up pkgdown for the package
-  if (pkgdown) {
-    message("Setting up pkgdown site...")
-    usethis::use_pkgdown()
-    pkgdown::build_site()
-  }
-  
-  message("Package '", pkg_name, "' created successfully at: ", path)
-  
-  # Return package information invisibly
-  invisible(list(
-    path = path,
-    package_name = pkg_name,
-    success = TRUE
-  ))
+    message("\n", strrep("=", 60))
+    message("SUCCESS! Package '", pkg_name, "' created at:")
+    message(path)
+    message(strrep("=", 60), "\n")
+    
+    # Return package information invisibly
+    invisible(list(
+      path = path,
+      package_name = pkg_name,
+      success = TRUE
+    ))
+    
+  }, error = function(e) {
+    # If package creation failed, provide helpful error message
+    error_msg <- paste0(
+      "Failed to create package '", pkg_name, "': ", e$message,
+      "\n\nIf a partial package directory was created, you may need to delete it manually."
+    )
+    
+    stop(error_msg, call. = FALSE)
+  })
 }
 
 #' @title Make Package from Config
