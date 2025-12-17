@@ -92,22 +92,74 @@ setup_license <- function(license, author) {
 
 #' @title Make Package
 #'
-#' @description Create a new R package with the specified parameters
+#' @description Create a new R package with the specified parameters. This function
+#' automates the process of creating an R package structure, including DESCRIPTION file,
+#' README, license files, and optionally sets up Git, GitHub, and pkgdown documentation.
 #'
-#' @param path character. The path to create the package at.
-#' @param author character. The name of the package author.
-#' @param email character. The email to use for Git and GitHub.
-#' @param git logical. Whether to initialize a Git repository for the package.
-#' @param git_username character. The username to use for Git and GitHub.
-#' @param git_email character. The email to use for Git and GitHub.
-#' @param readme_md logical. Whether to create a README file in markdown format.
-#' @param check_pkg_name logical. Whether to check that the package name is available on CRAN.
-#' @param license character. The license to use for the package (either "MIT" or "GPL-3").
-#' @param pkgdown logical. Whether to create a pkgdown site for the package.
+#' @details
+#' The function includes comprehensive input validation to ensure:
+#' \itemize{
+#'   \item Package names follow R conventions (start with letter, contain only letters/numbers/dots)
+#'   \item Email addresses are properly formatted
+#'   \item Author names include at least first and last name
+#'   \item The target directory doesn't already exist
+#' }
+#'
+#' If any operation fails (e.g., Git/GitHub setup), the function continues and warns
+#' rather than failing completely, ensuring you still get a usable package structure.
+#'
+#' @param path character. The path where the package will be created. Can be a simple
+#'   package name (creates in current directory) or a full path. Package name must start
+#'   with a letter and contain only letters, numbers, and dots.
+#' @param author character. Full name of the package author (e.g., "Jane Doe"). Must
+#'   include at least a first and last name separated by space.
+#' @param email character. Email address of the author. Must be a valid email format.
+#' @param git logical. Whether to initialize a Git repository for the package. Default: TRUE.
+#' @param git_username character. The username to use for Git configuration. Optional;
+#'   only used if git = TRUE.
+#' @param git_email character. The email to use for Git configuration. Optional;
+#'   only used if git = TRUE.
+#' @param readme_md logical. Whether to create a README.md file. Default: TRUE.
+#' @param check_pkg_name logical. Whether to check that the package name is available
+#'   on CRAN using the 'available' package. Default: TRUE.
+#' @param license character. The license to use for the package. Must be either "MIT"
+#'   or "GPL-3". Default: "MIT".
+#' @param pkgdown logical. Whether to set up and build a pkgdown documentation site.
+#'   Default: TRUE. Note: this can take some time to build.
+#'
+#' @return Invisibly returns a list with three elements:
+#'   \itemize{
+#'     \item \code{path}: Full path to the created package
+#'     \item \code{package_name}: Name of the package
+#'     \item \code{success}: TRUE if package was created successfully
+#'   }
+#'
+#' @examples
+#' \dontrun{
+#' # Create a simple package with MIT license
+#' mk_pkg(
+#'   path = "mypackage",
+#'   author = "Jane Doe",
+#'   email = "jane.doe@example.com",
+#'   git = FALSE,
+#'   pkgdown = FALSE
+#' )
+#'
+#' # Create a package with Git and GPL-3 license
+#' mk_pkg(
+#'   path = "~/projects/analysisPkg",
+#'   author = "John Smith Wilson",
+#'   email = "john@example.com",
+#'   git = TRUE,
+#'   git_username = "jsmith",
+#'   git_email = "john@example.com",
+#'   license = "GPL-3"
+#' )
+#' }
+#'
 #' @import usethis
 #' @importFrom available available
 #' @importFrom withr local_dir
-#' @return Invisibly returns a list with package information
 #' @export
 
 mk_pkg <- function(path, author, email, git = TRUE, git_username = NULL, git_email = NULL, readme_md = TRUE, check_pkg_name = TRUE, license = "MIT", pkgdown = TRUE) {
@@ -134,14 +186,10 @@ mk_pkg <- function(path, author, email, git = TRUE, git_username = NULL, git_ema
     )
   }
   
-  # Track whether package directory was created for cleanup on error
-  pkg_created <- FALSE
-  
   tryCatch({
     # Use the usethis::create_package function to create the package
     message("Creating package structure...")
     usethis::create_package(path = path, rstudio = TRUE, open = FALSE)
-    pkg_created <- TRUE
 
     # Parse the author's name into first and last name
     author_parts <- parse_author_name(author)
@@ -240,29 +288,122 @@ mk_pkg <- function(path, author, email, git = TRUE, git_username = NULL, git_ema
 
 #' @title Make Package from Config
 #'
-#' @description Create a package based on a configuration file.
+#' @description Create a package based on a YAML or JSON configuration file. This provides
+#' a convenient way to store and reuse package creation settings.
 #'
-#' @param config_path character. The path to the configuration file.
-#' @param file_type character. The file type of the configuration file (either "yaml" or "json").
-#' @return NULL
+#' @details
+#' The configuration file must contain at minimum:
+#' \itemize{
+#'   \item \code{pkg_name}: Package name
+#'   \item \code{first_name}: Author's first name
+#'   \item \code{last_name}: Author's last name
+#' }
+#'
+#' Optional fields include: \code{email}, \code{readme_md}, \code{git}, \code{git_username},
+#' \code{git_email}, \code{check_pkg_name}, \code{license}, and \code{pkgdown}.
+#'
+#' @param config_path character. Path to the configuration file. File must exist.
+#' @param file_type character. The file type of the configuration file. Must be either
+#'   "yaml" or "json". Default: "yaml".
+#'
+#' @return Invisibly returns a list with package information (see \code{\link{mk_pkg}}).
+#'
+#' @examples
+#' \dontrun{
+#' # Create a config file
+#' config <- list(
+#'   pkg_name = "mypackage",
+#'   first_name = "Jane",
+#'   last_name = "Doe",
+#'   email = "jane@example.com",
+#'   license = "MIT"
+#' )
+#' write_config("pkg_config.yaml", config)
+#'
+#' # Create package from config
+#' mk_pkg_from_config("pkg_config.yaml", file_type = "yaml")
+#' }
+#'
+#' @seealso \code{\link{mk_pkg}}, \code{\link{import_config}}, \code{\link{write_config}}
 #' @export
 mk_pkg_from_config <- function(config_path, file_type = "yaml") {
-  # Use the import_config function to import the configuration data
-  config_data <- pkgmkr::import_config(config_path, file_type)
+  
+  # Validate config file exists
+  if (!file.exists(config_path)) {
+    stop("Configuration file not found: ", config_path, call. = FALSE)
+  }
+  
+  # Validate file_type
+  if (!file_type %in% c("yaml", "json")) {
+    stop("file_type must be either 'yaml' or 'json'", call. = FALSE)
+  }
+  
+  # Import configuration data with error handling
+  config_data <- tryCatch(
+    pkgmkr::import_config(config_path, file_type),
+    error = function(e) {
+      stop(
+        "Failed to read configuration file '", config_path, "': ",
+        e$message,
+        call. = FALSE
+      )
+    }
+  )
+  
+  # Define required fields
+  required_fields <- c("pkg_name", "first_name", "last_name")
+  missing_fields <- setdiff(required_fields, names(config_data))
+  
+  if (length(missing_fields) > 0) {
+    stop(
+      "Configuration file is missing required field(s): ",
+      paste(missing_fields, collapse = ", "),
+      call. = FALSE
+    )
+  }
 
-  # Extract the configuration data from the config_data list
+  # Extract configuration data with defaults
   pkg_name <- config_data$pkg_name
   first_name <- config_data$first_name
   last_name <- config_data$last_name
-  readme_md <- config_data$readme_md
-  git <- config_data$git
-  check_pkg_name <- config_data$check_pkg_name
-  license <- config_data$license
-  pkgdown <- config_data$pkgdown
+  email <- config_data$email %||% NULL
+  readme_md <- config_data$readme_md %||% TRUE
+  git <- config_data$git %||% FALSE
+  git_username <- config_data$git_username %||% NULL
+  git_email <- config_data$git_email %||% NULL
+  check_pkg_name <- config_data$check_pkg_name %||% TRUE
+  license <- config_data$license %||% "MIT"
+  pkgdown <- config_data$pkgdown %||% FALSE
 
-  # Concatenate the first_name and last_name into a single string for the author argument
+  # Validate extracted values
+  if (is.null(pkg_name) || pkg_name == "") {
+    stop("pkg_name in config file cannot be empty", call. = FALSE)
+  }
+  
+  if (is.null(first_name) || first_name == "" || is.null(last_name) || last_name == "") {
+    stop("first_name and last_name in config file cannot be empty", call. = FALSE)
+  }
+
+  # Concatenate first_name and last_name into author
   author <- paste(first_name, last_name, sep = " ")
 
-  # Call the mk_package function with the appropriate arguments
-  mk_pkg(path = pkg_name, author = author, email = NULL, readme_md = readme_md, git = git, check_pkg_name = check_pkg_name, license = license, pkgdown = pkgdown)
+  # Call mk_pkg with the configuration
+  message("Creating package from config file: ", config_path)
+  mk_pkg(
+    path = pkg_name,
+    author = author,
+    email = email,
+    git = git,
+    git_username = git_username,
+    git_email = git_email,
+    readme_md = readme_md,
+    check_pkg_name = check_pkg_name,
+    license = license,
+    pkgdown = pkgdown
+  )
+}
+
+# Helper function for NULL-coalescing
+`%||%` <- function(x, y) {
+  if (is.null(x)) y else x
 }
