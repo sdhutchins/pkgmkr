@@ -5,7 +5,6 @@
 #' @param path character. The path to the configuration file.
 #' @param file_type character. The file type of the configuration file (either "yaml" or "json").
 #' @importFrom configr read.config
-#' @importFrom available available
 #' @return A list containing the configuration data.
 #' @export
 import_config <- function(path, file_type = "yaml") {
@@ -22,7 +21,6 @@ import_config <- function(path, file_type = "yaml") {
 #' @param path character. The path to write the configuration file to.
 #' @param config_data list. The configuration data to write to the file.
 #' @importFrom configr write.config
-#' @importFrom available available
 #' @return NULL
 #' @export
 write_config <- function(path, config_data) {
