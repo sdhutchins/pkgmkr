@@ -1,4 +1,101 @@
+# pkgdown configuration file
+# See https://pkgdown.r-lib.org/reference/build_site.html for details
+
 destination: docs
+
+# URL where the site will be published
+url: https://shauritahutchins.com/pkgmkr/
+
+# Template and styling
+# See https://pkgdown.r-lib.org/articles/customise.html
 template:
-  params:
-    bootswatch: simplex
+  bootstrap: 5
+  theme: pygments
+  
+  # bslib theme variables for custom styling
+  # See https://pkgdown.r-lib.org/articles/customise.html#bslib-variables
+  bslib:
+    bg: "#FFFFFF"
+    fg: "#674655"
+    primary: "#768b99"
+    secondary: "#d9acbe"
+    base_font: {google: "Inter"}
+    heading_font: {google: "Inter"}
+    code_font: {google: "JetBrains Mono"}
+    code-bg: "#e7ebef"
+  
+# Home page configuration
+home:
+  title: "pkgmkr: Create R Packages with One Simple Function"
+  description: |
+    Simplifies the process of creating R packages by providing a single,
+    straightforward function that handles package initialization, Git integration,
+    license selection, README generation, and pkgdown site setup.
+  
+  # Sidebar configuration
+  sidebar:
+    structure: [links, license, community, citation, authors, dev]
+    
+    # Links to external resources
+    links:
+      - text: "Report a bug"
+        href: https://github.com/sdhutchins/pkgmkr/issues
+      - text: "View source code"
+        href: https://github.com/sdhutchins/pkgmkr
+    
+    # License information
+    license: MIT
+    
+    # Development status
+    dev: "This package is in early development"
+
+# Authors page configuration
+authors:
+  "Shaurita D. Hutchins":
+    href: https://orcid.org/0000-0002-7687-0059
+
+# Reference index - organize functions by topic
+reference:
+  - title: Package Creation
+    desc: Main functions for creating R packages
+    contents:
+      - mk_pkg
+      - mk_pkg_from_config
+  
+  - title: Configuration Management
+    desc: Functions for working with configuration files
+    contents:
+      - import_config
+      - write_config
+
+# Navbar configuration
+# See https://pkgdown.r-lib.org/articles/customise.html#navbar
+navbar:
+  # Navbar background color (matches primary theme color)
+  bg: "#674655"
+  
+  # Navbar structure: defines order of components
+  structure:
+    left: [intro, reference]
+    right: [search, github]
+  # Component definitions
+  components:
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/sdhutchins/pkgmkr
+      aria-label: "View source code on GitHub"
+
+# Footer configuration
+# See https://pkgdown.r-lib.org/articles/customise.html#footer
+footer:
+  structure: 
+    left: [built_with]
+    right: [developed_by]
+    # built_with is a built-in component that automatically displays
+    # "Site built with pkgdown X.X.X" - no need to override it
+
+# Development mode (for local development)
+development:
+  mode: auto
+  version: 0.1.0
+  url: ~
