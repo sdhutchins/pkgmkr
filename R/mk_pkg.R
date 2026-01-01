@@ -11,41 +11,57 @@ validate_inputs <- function(path, author, email, license) {
   if (missing(path) || is.null(path) || path == "") {
     stop("'path' must be provided and cannot be empty.", call. = FALSE)
   }
-  
-  # Validate author is provided
-  if (missing(author) || is.null(author) || author == "") {
-    stop("'author' must be provided and cannot be empty.", call. = FALSE)
-  }
-  
-  # Validate email is provided and properly formatted
-  if (missing(email) || is.null(email) || email == "") {
-    stop("'email' must be provided and cannot be empty.", call. = FALSE)
-  }
-  
-  if (!grepl("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", email)) {
-    stop("'email' must be a valid email address (e.g., user@example.com).", call. = FALSE)
-  }
-  
-  # Validate package name format
+
+  # Validate package name format early (before other validations)
   pkg_name <- basename(path)
   if (!grepl("^[a-zA-Z][a-zA-Z0-9.]*[a-zA-Z0-9]$", pkg_name)) {
     stop(
-      "Invalid package name '", pkg_name, "'. ",
+      "Invalid package name '",
+      pkg_name,
+      "'. ",
       "Package names must start with a letter, contain only letters, numbers, and dots, ",
       "and cannot end with a dot.",
       call. = FALSE
     )
   }
-  
-  # Validate license
+
+  # Validate license early (required parameter with fixed values)
   supported_licenses <- c("MIT", "GPL-3")
   if (!license %in% supported_licenses) {
     stop(
-      "'license' must be one of: ", paste(supported_licenses, collapse = ", "),
+      "'license' must be one of: ",
+      paste(supported_licenses, collapse = ", "),
       call. = FALSE
     )
   }
-  
+
+  # Validate author is provided
+  if (missing(author) || is.null(author) || author == "") {
+    stop("'author' must be provided and cannot be empty.", call. = FALSE)
+  }
+
+  # Validate author has at least first and last name
+  author_parts <- strsplit(trimws(author), "\\s+")[[1]]
+  if (length(author_parts) < 2) {
+    stop(
+      "Author name must include at least a first and last name separated by a space. ",
+      "Received: '",
+      author,
+      "'",
+      call. = FALSE
+    )
+  }
+
+  # Validate email format if provided (optional parameter, validate last)
+  if (!missing(email) && !is.null(email) && email != "") {
+    if (!grepl("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", email)) {
+      stop(
+        "'email' must be a valid email address (e.g., user@example.com).",
+        call. = FALSE
+      )
+    }
+  }
+
   invisible(TRUE)
 }
 
@@ -56,15 +72,17 @@ validate_inputs <- function(path, author, email, license) {
 parse_author_name <- function(author) {
   # Split the name by spaces
   parts <- strsplit(trimws(author), "\\s+")[[1]]
-  
+
   if (length(parts) < 2) {
     stop(
       "Author name must include at least a first and last name separated by a space. ",
-      "Received: '", author, "'",
+      "Received: '",
+      author,
+      "'",
       call. = FALSE
     )
   }
-  
+
   # First part is the first name, everything else is the last name
   list(
     first = parts[1],
@@ -78,15 +96,20 @@ parse_author_name <- function(author) {
 #' @noRd
 setup_license <- function(license, author) {
   message("Setting up ", license, " license...")
-  
+
   if (license == "MIT") {
     usethis::use_mit_license(copyright_holder = author)
   } else if (license == "GPL-3") {
     usethis::use_gpl3_license()
   } else {
-    warning("Unsupported license: ", license, ". Skipping license setup.", call. = FALSE)
+    warning(
+      "Unsupported license: ",
+      license,
+      ". Skipping license setup.",
+      call. = FALSE
+    )
   }
-  
+
   invisible(NULL)
 }
 
@@ -113,7 +136,8 @@ setup_license <- function(license, author) {
 #'   with a letter and contain only letters, numbers, and dots.
 #' @param author character. Full name of the package author (e.g., "Jane Doe"). Must
 #'   include at least a first and last name separated by space.
-#' @param email character. Email address of the author. Must be a valid email format.
+#' @param email character. Email address of the author. Optional, but must be a valid
+#'   email format if provided.
 #' @param git logical. Whether to initialize a Git repository for the package. Default: TRUE.
 #' @param git_username character. The username to use for Git configuration. Optional;
 #'   only used if git = TRUE.
@@ -145,6 +169,14 @@ setup_license <- function(license, author) {
 #'   pkgdown = FALSE
 #' )
 #'
+#' # Create a package without email
+#' mk_pkg(
+#'   path = "simplepackage",
+#'   author = "Jane Doe",
+#'   git = FALSE,
+#'   pkgdown = FALSE
+#' )
+#'
 #' # Create a package with Git and GPL-3 license
 #' mk_pkg(
 #'   path = "~/projects/analysisPkg",
@@ -159,131 +191,205 @@ setup_license <- function(license, author) {
 #'
 #' @import usethis
 #' @importFrom available available
-#' @importFrom withr local_dir
+#' @importFrom desc desc
+#' @importFrom withr defer
 #' @export
 
-mk_pkg <- function(path, author, email, git = TRUE, git_username = NULL, git_email = NULL, readme_md = TRUE, check_pkg_name = TRUE, license = "MIT", pkgdown = TRUE) {
-  
+mk_pkg <- function(
+  path,
+  author,
+  email = NULL,
+  git = TRUE,
+  git_username = NULL,
+  git_email = NULL,
+  readme_md = TRUE,
+  check_pkg_name = TRUE,
+  license = "MIT",
+  pkgdown = TRUE
+) {
+  # Validate path is provided before normalizePath (which will error on NULL)
+  if (missing(path) || is.null(path) || path == "") {
+    stop("'path' must be provided and cannot be empty.", call. = FALSE)
+  }
+
+  # Convert to absolute path early for consistency
+  path <- normalizePath(path, mustWork = FALSE)
+
+  # Check if directory already exists (do this early)
+  if (dir.exists(path)) {
+    stop(
+      "Directory '",
+      path,
+      "' already exists. Please choose a different path.",
+      call. = FALSE
+    )
+  }
+
   # Input validation
   validate_inputs(path, author, email, license)
-  
+
   # Extract package name from path
   pkg_name <- basename(path)
-  
-  # Check if directory already exists
-  if (dir.exists(path)) {
-    stop("Directory '", path, "' already exists. Please choose a different path.", call. = FALSE)
-  }
-  
+
   # Check package name availability if requested
   if (check_pkg_name) {
     message("Checking package name availability on CRAN...")
     tryCatch(
       available::available(name = pkg_name, browse = FALSE),
       error = function(e) {
-        warning("Could not check package name availability: ", e$message, call. = FALSE)
+        warning(
+          "Could not check package name availability: ",
+          e$message,
+          call. = FALSE
+        )
       }
     )
   }
-  
-  tryCatch({
-    # Use the usethis::create_package function to create the package
-    message("Creating package structure...")
-    usethis::create_package(path = path, rstudio = TRUE, open = FALSE)
 
-    # Parse the author's name into first and last name
-    author_parts <- parse_author_name(author)
+  tryCatch(
+    {
+      # Use the usethis::create_package function to create the package
+      message("Creating package structure...")
+      usethis::create_package(path = path, rstudio = TRUE, open = FALSE)
 
-    # Use withr::local_dir instead of setwd to avoid changing user's working directory
-    withr::local_dir(path)
+      # Parse the author's name into first and last name
+      author_parts <- parse_author_name(author)
 
-    # Use the usethis::use_description function to set the package's Authors@R field
-    message("Setting up DESCRIPTION file...")
-    usethis::use_description(fields = list(
-      `Authors@R` = paste0(
-        'person("', author_parts$first, '", "', author_parts$last, 
-        '", email = "', email, '", role = c("aut", "cre"))'
-      )
-    ))
-
-    # If readme_md is TRUE, use the usethis::use_readme_md function to create a README file
-    if (readme_md) {
-      message("Creating README.md...")
-      tryCatch(
-        usethis::use_readme_md(),
-        error = function(e) {
-          warning("Failed to create README.md: ", e$message, call. = FALSE)
+      # Set the active project for usethis functions
+      # Use withr::defer to ensure project is reset even if function exits early
+      old_project <- tryCatch(usethis::proj_get(), error = function(e) NULL)
+      withr::defer({
+        if (!is.null(old_project)) {
+          usethis::proj_set(old_project, force = TRUE)
         }
-      )
-    }
+      })
+      usethis::proj_set(path, force = TRUE)
 
-    # Set up license
-    tryCatch(
-      setup_license(license, author),
-      error = function(e) {
-        warning("Failed to set up license: ", e$message, call. = FALSE)
+      # Update the DESCRIPTION file with author information using desc package
+      message("Setting up DESCRIPTION file...")
+      desc_obj <- desc::desc(file.path(path, "DESCRIPTION"))
+
+      # Set the author using person object
+      # Only include email if provided
+      if (!is.null(email) && email != "") {
+        desc_obj$set_authors(
+          person(
+            given = author_parts$first,
+            family = author_parts$last,
+            email = email,
+            role = c("aut", "cre")
+          )
+        )
+      } else {
+        desc_obj$set_authors(
+          person(
+            given = author_parts$first,
+            family = author_parts$last,
+            role = c("aut", "cre")
+          )
+        )
       }
-    )
 
-    # If git is TRUE, initialize Git repository
-    if (git) {
-      message("Initializing Git repository...")
-      tryCatch({
-        usethis::use_git()
-        
-        if (!is.null(git_username) && !is.null(git_email)) {
-          usethis::use_git_config(scope = "project", user.name = git_username, user.email = git_email)
-        }
-        
-        # Only attempt GitHub setup if credentials are available
+      # Write the updated DESCRIPTION file
+      desc_obj$write()
+
+      # If readme_md is TRUE, use the usethis::use_readme_md function to create a README file
+      if (readme_md) {
+        message("Creating README.md...")
         tryCatch(
-          usethis::use_github(),
+          usethis::use_readme_md(open = FALSE),
+          error = function(e) {
+            warning("Failed to create README.md: ", e$message, call. = FALSE)
+          }
+        )
+      }
+
+      # Set up license
+      tryCatch(
+        setup_license(license, author),
+        error = function(e) {
+          warning("Failed to set up license: ", e$message, call. = FALSE)
+        }
+      )
+
+      # If git is TRUE, initialize Git repository
+      if (git) {
+        message("Initializing Git repository...")
+        tryCatch(
+          {
+            usethis::use_git(message = "Initial commit")
+
+            if (!is.null(git_username) && !is.null(git_email)) {
+              usethis::use_git_config(
+                scope = "project",
+                user.name = git_username,
+                user.email = git_email
+              )
+            }
+
+            # Only attempt GitHub setup if credentials are available
+            tryCatch(
+              usethis::use_github(),
+              error = function(e) {
+                warning(
+                  "Could not create GitHub repository. ",
+                  "You may need to set up GitHub credentials. ",
+                  "Error: ",
+                  e$message,
+                  call. = FALSE
+                )
+              }
+            )
+          },
           error = function(e) {
             warning(
-              "Could not create GitHub repository. ",
-              "You may need to set up GitHub credentials. ",
-              "Error: ", e$message,
+              "Failed to initialize Git repository: ",
+              e$message,
               call. = FALSE
             )
           }
         )
-      }, error = function(e) {
-        warning("Failed to initialize Git repository: ", e$message, call. = FALSE)
-      })
-    }
+      }
 
-    # If pkgdown is TRUE, set up pkgdown site
-    if (pkgdown) {
-      message("Setting up pkgdown site...")
-      tryCatch({
-        usethis::use_pkgdown()
-        pkgdown::build_site()
-      }, error = function(e) {
-        warning("Failed to build pkgdown site: ", e$message, call. = FALSE)
-      })
+      # If pkgdown is TRUE, set up pkgdown site
+      if (pkgdown) {
+        message("Setting up pkgdown site...")
+        tryCatch(
+          {
+            usethis::use_pkgdown()
+            pkgdown::build_site()
+          },
+          error = function(e) {
+            warning("Failed to build pkgdown site: ", e$message, call. = FALSE)
+          }
+        )
+      }
+
+      message("\n", strrep("=", 60))
+      message("SUCCESS! Package '", pkg_name, "' created at:")
+      message(path)
+      message(strrep("=", 60), "\n")
+
+      # Return package information invisibly
+      invisible(list(
+        path = path,
+        package_name = pkg_name,
+        success = TRUE
+      ))
+    },
+    error = function(e) {
+      # If package creation failed, provide helpful error message
+      error_msg <- paste0(
+        "Failed to create package '",
+        pkg_name,
+        "': ",
+        e$message,
+        "\n\nIf a partial package directory was created, you may need to delete it manually."
+      )
+
+      stop(error_msg, call. = FALSE)
     }
-    
-    message("\n", strrep("=", 60))
-    message("SUCCESS! Package '", pkg_name, "' created at:")
-    message(path)
-    message(strrep("=", 60), "\n")
-    
-    # Return package information invisibly
-    invisible(list(
-      path = path,
-      package_name = pkg_name,
-      success = TRUE
-    ))
-    
-  }, error = function(e) {
-    # If package creation failed, provide helpful error message
-    error_msg <- paste0(
-      "Failed to create package '", pkg_name, "': ", e$message,
-      "\n\nIf a partial package directory was created, you may need to delete it manually."
-    )
-    
-    stop(error_msg, call. = FALSE)
-  })
+  )
 }
 
 #' @title Make Package from Config
@@ -327,33 +433,34 @@ mk_pkg <- function(path, author, email, git = TRUE, git_username = NULL, git_ema
 #' @seealso \code{\link{mk_pkg}}, \code{\link{import_config}}, \code{\link{write_config}}
 #' @export
 mk_pkg_from_config <- function(config_path, file_type = "yaml") {
-  
   # Validate config file exists
   if (!file.exists(config_path)) {
     stop("Configuration file not found: ", config_path, call. = FALSE)
   }
-  
+
   # Validate file_type
   if (!file_type %in% c("yaml", "json")) {
     stop("file_type must be either 'yaml' or 'json'", call. = FALSE)
   }
-  
+
   # Import configuration data with error handling
   config_data <- tryCatch(
     pkgmkr::import_config(config_path, file_type),
     error = function(e) {
       stop(
-        "Failed to read configuration file '", config_path, "': ",
+        "Failed to read configuration file '",
+        config_path,
+        "': ",
         e$message,
         call. = FALSE
       )
     }
   )
-  
+
   # Define required fields
   required_fields <- c("pkg_name", "first_name", "last_name")
   missing_fields <- setdiff(required_fields, names(config_data))
-  
+
   if (length(missing_fields) > 0) {
     stop(
       "Configuration file is missing required field(s): ",
@@ -379,9 +486,17 @@ mk_pkg_from_config <- function(config_path, file_type = "yaml") {
   if (is.null(pkg_name) || pkg_name == "") {
     stop("pkg_name in config file cannot be empty", call. = FALSE)
   }
-  
-  if (is.null(first_name) || first_name == "" || is.null(last_name) || last_name == "") {
-    stop("first_name and last_name in config file cannot be empty", call. = FALSE)
+
+  if (
+    is.null(first_name) ||
+      first_name == "" ||
+      is.null(last_name) ||
+      last_name == ""
+  ) {
+    stop(
+      "first_name and last_name in config file cannot be empty",
+      call. = FALSE
+    )
   }
 
   # Concatenate first_name and last_name into author
