@@ -110,9 +110,9 @@ mk_pkg_from_config("my_package_config.yaml", file_type = "yaml")
 
 ## Parameters
 
-- `path`: Path where the package will be created (can be just a package name or full path)
-- `author`: Full name of the package author (e.g., "Jane Doe")
-- `email`: Email address of the author
+- `path`: Path where the package will be created (can be just a package name or full path) **[required]**
+- `author`: Full name of the package author (e.g., "Jane Doe") **[required]**
+- `email`: Email address of the author **[optional]** - if not provided, DESCRIPTION will not include maintainer email
 - `git`: Logical; whether to initialize a Git repository (default: `TRUE`)
 - `git_username`: Git username for repository configuration
 - `git_email`: Git email for repository configuration
