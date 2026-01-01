@@ -1,0 +1,132 @@
+---
+title: "pkgmkr"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(pkgmkr)
+```
+
+# Welcome to pkgmkr
+
+`pkgmkr` simplifies the process of creating R packages by providing a single, straightforward function that handles all the setup work for you. Whether you're creating your first package or your hundredth, `pkgmkr` streamlines the process so you can focus on writing code instead of configuration.
+
+## Why pkgmkr?
+
+Creating an R package from scratch involves many steps:
+- Setting up the package structure
+- Configuring the DESCRIPTION file
+- Choosing and setting up a license
+- Creating a README
+- Initializing Git (if desired)
+- Setting up documentation sites
+
+`pkgmkr` automates all of this with one function call, saving you time and ensuring consistency across your packages.
+
+## Quick Start
+
+The simplest way to create a package:
+
+```{r eval = FALSE}
+library(pkgmkr)
+
+mk_pkg(
+  path = "mypackage",
+  author = "Your Name",
+  email = "your.email@example.com"
+)
+```
+
+That's it! `pkgmkr` will create a fully functional R package with:
+- Proper package structure
+- DESCRIPTION file with your information
+- MIT license (or GPL-3 if you prefer)
+- README.md file
+- Git repository initialized
+- Ready for development
+
+## Key Features
+
+### One Function = Complete Setup
+
+`mk_pkg()` handles everything you need to get started:
+- Package structure creation
+- Metadata configuration
+- License setup
+- Git initialization (optional)
+- README generation
+- pkgdown site setup (optional)
+
+### Configuration Files
+
+Prefer configuration files? Use YAML or JSON:
+
+```{r eval = FALSE}
+# Create a config file
+config <- list(
+  pkg_name = "mypackage",
+  first_name = "Jane",
+  last_name = "Doe",
+  email = "jane@example.com",
+  license = "MIT"
+)
+
+write_config("my_config.yaml", config)
+mk_pkg_from_config("my_config.yaml")
+```
+
+### Smart Validation
+
+`pkgmkr` includes comprehensive input validation:
+- Validates package name format (must follow R conventions)
+- Checks email format
+- Ensures author names are properly formatted
+- Prevents overwriting existing directories
+- Validates license choices
+
+### Flexible Options
+
+Customize your package creation:
+- Choose between MIT or GPL-3 licenses
+- Enable or disable Git initialization
+- Control README creation
+- Optionally check package name availability on CRAN
+- Set up pkgdown documentation site automatically
+
+## What Gets Created?
+
+When you run `mk_pkg()`, you'll get a complete package structure:
+
+```
+mypackage/
+├── DESCRIPTION          # Package metadata
+├── LICENSE             # License file
+├── LICENSE.md          # License in markdown
+├── NAMESPACE           # Package namespace
+├── README.md           # Package README
+├── R/                  # Your R code goes here
+├── man/                # Documentation (auto-generated)
+└── .git/               # Git repository (if enabled)
+```
+
+## Next Steps
+
+Once your package is created:
+
+1. **Add your code** to the `R/` directory
+2. **Document your functions** using roxygen2 comments
+3. **Run `devtools::document()`** to generate help files
+4. **Write tests** in the `tests/` directory
+5. **Build your site** with `pkgdown::build_site()` (if enabled)
+
+## Learn More
+
+- Browse the [reference documentation](/reference/) for detailed function documentation
+- See [examples](/reference/mk_pkg.html#examples) for more usage patterns
+- Check out the [configuration guide](/reference/write_config.html) for advanced setups
