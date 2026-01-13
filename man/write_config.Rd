@@ -2,15 +2,50 @@
 % Please edit documentation in R/pkg_config.R
 \name{write_config}
 \alias{write_config}
-\title{Write Config}
+\title{Write Package Configuration}
 \usage{
 write_config(path, config_data)
 }
 \arguments{
-\item{path}{character. The path to write the configuration file to.}
+\item{path}{character. Path where the configuration file will be written. Parent
+directories will be created if they don't exist.}
 
-\item{config_data}{list. The configuration data to write to the file.}
+\item{config_data}{list. The configuration data to write. Must be a named list
+containing package configuration parameters.}
+}
+\value{
+Invisibly returns TRUE on success.
 }
 \description{
-Write configuration data to a file.
+Write package configuration data to a YAML file for later use with
+\code{\link{mk_pkg_from_config}}.
+}
+\details{
+This function creates a YAML configuration file that can be used to create packages
+with consistent settings. If the parent directory doesn't exist, it will be created
+automatically.
+}
+\examples{
+\dontrun{
+# Create a configuration
+config <- list(
+  pkg_name = "mypackage",
+  first_name = "Jane",
+  last_name = "Doe",
+  email = "jane@example.com",
+  readme_md = TRUE,
+  git = FALSE,
+  license = "MIT"
+)
+
+# Write to file
+write_config("configs/my_package.yaml", config)
+
+# Later, create package from this config
+mk_pkg_from_config("configs/my_package.yaml")
+}
+
+}
+\seealso{
+\code{\link{import_config}}, \code{\link{mk_pkg_from_config}}
 }

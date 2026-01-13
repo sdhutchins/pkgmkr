@@ -7,7 +7,7 @@
 mk_pkg(
   path,
   author,
-  email,
+  email = NULL,
   git = TRUE,
   git_username = NULL,
   git_email = NULL,
@@ -18,26 +18,89 @@ mk_pkg(
 )
 }
 \arguments{
-\item{path}{character. The path to create the package at.}
+\item{path}{character. The path where the package will be created. Can be a simple
+package name (creates in current directory) or a full path. Package name must start
+with a letter and contain only letters, numbers, and dots.}
 
-\item{author}{character. The name of the package author.}
+\item{author}{character. Full name of the package author (e.g., "Jane Doe"). Must
+include at least a first and last name separated by space.}
 
-\item{email}{character. The email to use for Git and GitHub.}
+\item{email}{character. Email address of the author. Optional, but must be a valid
+email format if provided.}
 
-\item{git}{logical. Whether to initialize a Git repository for the package.}
+\item{git}{logical. Whether to initialize a Git repository for the package. Default: TRUE.}
 
-\item{git_username}{character. The username to use for Git and GitHub.}
+\item{git_username}{character. The username to use for Git configuration. Optional;
+only used if git = TRUE.}
 
-\item{git_email}{character. The email to use for Git and GitHub.}
+\item{git_email}{character. The email to use for Git configuration. Optional;
+only used if git = TRUE.}
 
-\item{readme_md}{logical. Whether to create a README file in markdown format.}
+\item{readme_md}{logical. Whether to create a README.md file. Default: TRUE.}
 
-\item{check_pkg_name}{logical. Whether to check that the package name is available on CRAN.}
+\item{check_pkg_name}{logical. Whether to check that the package name is available
+on CRAN using the 'available' package. Default: TRUE.}
 
-\item{license}{character. The license to use for the package (either "MIT" or "GPL-3").}
+\item{license}{character. The license to use for the package. Must be either "MIT"
+or "GPL-3". Default: "MIT".}
 
-\item{pkgdown}{logical. Whether to create a pkgdown site for the package.}
+\item{pkgdown}{logical. Whether to set up and build a pkgdown documentation site.
+Default: TRUE. Note: this can take some time to build.}
+}
+\value{
+Invisibly returns a list with three elements:
+\itemize{
+\item \code{path}: Full path to the created package
+\item \code{package_name}: Name of the package
+\item \code{success}: TRUE if package was created successfully
+}
 }
 \description{
-Create a new R package with the specified parameters
+Create a new R package with the specified parameters. This function
+automates the process of creating an R package structure, including DESCRIPTION file,
+README, license files, and optionally sets up Git, GitHub, and pkgdown documentation.
+}
+\details{
+The function includes comprehensive input validation to ensure:
+\itemize{
+\item Package names follow R conventions (start with letter, contain only letters/numbers/dots)
+\item Email addresses are properly formatted
+\item Author names include at least first and last name
+\item The target directory doesn't already exist
+}
+
+If any operation fails (e.g., Git/GitHub setup), the function continues and warns
+rather than failing completely, ensuring you still get a usable package structure.
+}
+\examples{
+\dontrun{
+# Create a simple package with MIT license
+mk_pkg(
+  path = "mypackage",
+  author = "Jane Doe",
+  email = "jane.doe@example.com",
+  git = FALSE,
+  pkgdown = FALSE
+)
+
+# Create a package without email
+mk_pkg(
+  path = "simplepackage",
+  author = "Jane Doe",
+  git = FALSE,
+  pkgdown = FALSE
+)
+
+# Create a package with Git and GPL-3 license
+mk_pkg(
+  path = "~/projects/analysisPkg",
+  author = "John Smith Wilson",
+  email = "john@example.com",
+  git = TRUE,
+  git_username = "jsmith",
+  git_email = "john@example.com",
+  license = "GPL-3"
+)
+}
+
 }

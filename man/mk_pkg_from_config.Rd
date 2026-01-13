@@ -7,10 +7,46 @@
 mk_pkg_from_config(config_path, file_type = "yaml")
 }
 \arguments{
-\item{config_path}{character. The path to the configuration file.}
+\item{config_path}{character. Path to the configuration file. File must exist.}
 
-\item{file_type}{character. The file type of the configuration file (either "yaml" or "json").}
+\item{file_type}{character. The file type of the configuration file. Must be either
+"yaml" or "json". Default: "yaml".}
+}
+\value{
+Invisibly returns a list with package information (see \code{\link{mk_pkg}}).
 }
 \description{
-Create a package based on a configuration file.
+Create a package based on a YAML or JSON configuration file. This provides
+a convenient way to store and reuse package creation settings.
+}
+\details{
+The configuration file must contain at minimum:
+\itemize{
+\item \code{pkg_name}: Package name
+\item \code{first_name}: Author's first name
+\item \code{last_name}: Author's last name
+}
+
+Optional fields include: \code{email}, \code{readme_md}, \code{git}, \code{git_username},
+\code{git_email}, \code{check_pkg_name}, \code{license}, and \code{pkgdown}.
+}
+\examples{
+\dontrun{
+# Create a config file
+config <- list(
+  pkg_name = "mypackage",
+  first_name = "Jane",
+  last_name = "Doe",
+  email = "jane@example.com",
+  license = "MIT"
+)
+write_config("pkg_config.yaml", config)
+
+# Create package from config
+mk_pkg_from_config("pkg_config.yaml", file_type = "yaml")
+}
+
+}
+\seealso{
+\code{\link{mk_pkg}}, \code{\link{import_config}}, \code{\link{write_config}}
 }

@@ -12,18 +12,6 @@ template:
   bootstrap: 5
   theme: pygments
   
-  # bslib theme variables for custom styling
-  # See https://pkgdown.r-lib.org/articles/customise.html#bslib-variables
-  bslib:
-    bg: "#FFFFFF"
-    fg: "#674655"
-    primary: "#768b99"
-    secondary: "#d9acbe"
-    base_font: {google: "Inter"}
-    heading_font: {google: "Inter"}
-    code_font: {google: "JetBrains Mono"}
-    code-bg: "#e7ebef"
-  
 # Home page configuration
 home:
   title: "pkgmkr: Create R Packages with One Simple Function"

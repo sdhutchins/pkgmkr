@@ -1,6 +1,9 @@
-pandoc: 3.1.1
-pkgdown: 2.0.7
+pandoc: 3.7.0.2
+pkgdown: 2.2.0
 pkgdown_sha: ~
-articles: {}
-last_built: 2023-09-26T05:03Z
-
+articles:
+  articles/pkgmkr: pkgmkr.html
+last_built: 2025-12-20T02:35Z
+urls:
+  reference: https://shauritahutchins.com/pkgmkr/reference
+  article: https://shauritahutchins.com/pkgmkr/articles

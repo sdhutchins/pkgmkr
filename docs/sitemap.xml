@@ -1,36 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/import_config.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mk_package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mk_pkg.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mk_pkg_from_config.html</loc>
-  </url>
-  <url>
-    <loc>/reference/write_config.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://shauritahutchins.com/pkgmkr/404.html</loc></url>
+<url><loc>https://shauritahutchins.com/pkgmkr/LICENSE-text.html</loc></url>
+<url><loc>https://shauritahutchins.com/pkgmkr/LICENSE.html</loc></url>
+<url><loc>https://shauritahutchins.com/pkgmkr/articles/index.html</loc></url>
+<url><loc>https://shauritahutchins.com/pkgmkr/articles/pkgmkr.html</loc></url>
+<url><loc>https://shauritahutchins.com/pkgmkr/authors.html</loc></url>
+<url><loc>https://shauritahutchins.com/pkgmkr/index.html</loc></url>
+<url><loc>https://shauritahutchins.com/pkgmkr/reference/import_config.html</loc></url>
+<url><loc>https://shauritahutchins.com/pkgmkr/reference/index.html</loc></url>
+<url><loc>https://shauritahutchins.com/pkgmkr/reference/mk_package.html</loc></url>
+<url><loc>https://shauritahutchins.com/pkgmkr/reference/mk_pkg.html</loc></url>
+<url><loc>https://shauritahutchins.com/pkgmkr/reference/mk_pkg_from_config.html</loc></url>
+<url><loc>https://shauritahutchins.com/pkgmkr/reference/write_config.html</loc></url>
 </urlset>
+

@@ -28,33 +28,36 @@
 #' @importFrom configr read.config
 #' @export
 import_config <- function(path, file_type = "yaml") {
-  
   # Validate inputs
   if (missing(path) || is.null(path) || path == "") {
     stop("'path' must be provided and cannot be empty", call. = FALSE)
   }
-  
+
   if (!file.exists(path)) {
     stop("Configuration file not found: ", path, call. = FALSE)
   }
-  
+
   if (!file_type %in% c("yaml", "json")) {
     stop("'file_type' must be either 'yaml' or 'json'", call. = FALSE)
   }
-  
+
   # Read configuration data with error handling
   config_data <- tryCatch(
     configr::read.config(file = path, file.type = file_type),
     error = function(e) {
       stop(
-        "Failed to parse configuration file '", path, "': ",
+        "Failed to parse configuration file '",
+        path,
+        "': ",
         e$message,
-        "\nPlease check that the file is valid ", toupper(file_type), ".",
+        "\nPlease check that the file is valid ",
+        toupper(file_type),
+        ".",
         call. = FALSE
       )
     }
   )
-  
+
   # Validate that we got data back
   if (is.null(config_data) || length(config_data) == 0) {
     stop("Configuration file '", path, "' appears to be empty", call. = FALSE)
@@ -104,20 +107,19 @@ import_config <- function(path, file_type = "yaml") {
 #' @importFrom configr write.config
 #' @export
 write_config <- function(path, config_data) {
-  
   # Validate inputs
   if (missing(path) || is.null(path) || path == "") {
     stop("'path' must be provided and cannot be empty", call. = FALSE)
   }
-  
+
   if (missing(config_data) || is.null(config_data)) {
     stop("'config_data' must be provided and cannot be NULL", call. = FALSE)
   }
-  
+
   if (!is.list(config_data)) {
     stop("'config_data' must be a list", call. = FALSE)
   }
-  
+
   # Check if directory exists, create if needed
   config_dir <- dirname(path)
   if (!dir.exists(config_dir)) {
@@ -125,26 +127,37 @@ write_config <- function(path, config_data) {
     tryCatch(
       dir.create(config_dir, recursive = TRUE),
       error = function(e) {
-        stop("Failed to create directory '", config_dir, "': ", e$message, call. = FALSE)
+        stop(
+          "Failed to create directory '",
+          config_dir,
+          "': ",
+          e$message,
+          call. = FALSE
+        )
       }
     )
   }
-  
+
   # Write configuration data with error handling
-  tryCatch({
-    configr::write.config(
-      config.dat = config_data,
-      file.path = path,
-      write.type = "yaml",
-      indent = 4
-    )
-    message("Configuration written successfully to: ", path)
-    invisible(TRUE)
-  }, error = function(e) {
-    stop(
-      "Failed to write configuration file '", path, "': ",
-      e$message,
-      call. = FALSE
-    )
-  })
+  tryCatch(
+    {
+      configr::write.config(
+        config.dat = config_data,
+        file.path = path,
+        write.type = "yaml",
+        indent = 4
+      )
+      message("Configuration written successfully to: ", path)
+      invisible(TRUE)
+    },
+    error = function(e) {
+      stop(
+        "Failed to write configuration file '",
+        path,
+        "': ",
+        e$message,
+        call. = FALSE
+      )
+    }
+  )
 }
