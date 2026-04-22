@@ -26,8 +26,7 @@ with consistent settings. If the parent directory doesn't exist, it will be crea
 automatically.
 }
 \examples{
-\dontrun{
-# Create a configuration
+# Create a configuration and write it to a temp file
 config <- list(
   pkg_name = "mypackage",
   first_name = "Jane",
@@ -37,13 +36,12 @@ config <- list(
   git = FALSE,
   license = "MIT"
 )
+config_path <- tempfile(fileext = ".yaml")
+write_config(config_path, config)
 
-# Write to file
-write_config("configs/my_package.yaml", config)
-
-# Later, create package from this config
-mk_pkg_from_config("configs/my_package.yaml")
-}
+# Verify the file was created
+import_config(config_path, "yaml")
+unlink(config_path)
 
 }
 \seealso{

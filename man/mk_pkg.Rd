@@ -73,34 +73,30 @@ If any operation fails (e.g., Git/GitHub setup), the function continues and warn
 rather than failing completely, ensuring you still get a usable package structure.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Create a simple package with MIT license
+pkg_dir <- file.path(tempdir(), "mypackage")
 mk_pkg(
-  path = "mypackage",
+  path = pkg_dir,
   author = "Jane Doe",
   email = "jane.doe@example.com",
   git = FALSE,
+  check_pkg_name = FALSE,
   pkgdown = FALSE
 )
+unlink(pkg_dir, recursive = TRUE)
 
-# Create a package without email
+# Create a package with GPL-3 license
+pkg_dir <- file.path(tempdir(), "analysisPkg")
 mk_pkg(
-  path = "simplepackage",
-  author = "Jane Doe",
-  git = FALSE,
-  pkgdown = FALSE
-)
-
-# Create a package with Git and GPL-3 license
-mk_pkg(
-  path = "~/projects/analysisPkg",
+  path = pkg_dir,
   author = "John Smith Wilson",
   email = "john@example.com",
-  git = TRUE,
-  git_username = "jsmith",
-  git_email = "john@example.com",
-  license = "GPL-3"
+  git = FALSE,
+  check_pkg_name = FALSE,
+  license = "GPL-3",
+  pkgdown = FALSE
 )
-}
-
+unlink(pkg_dir, recursive = TRUE)
+\dontshow{\}) # examplesIf}
 }

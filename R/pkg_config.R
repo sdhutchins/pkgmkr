@@ -15,14 +15,12 @@
 #' @return A list containing the configuration data from the file.
 #'
 #' @examples
-#' \dontrun{
-#' # Import a YAML config
-#' config <- import_config("my_config.yaml", "yaml")
+#' # Write a temporary YAML config, then import it
+#' config_path <- tempfile(fileext = ".yaml")
+#' writeLines("pkg_name: demopkg\nfirst_name: Jane\nlast_name: Doe", config_path)
+#' config <- import_config(config_path, "yaml")
 #' print(config$pkg_name)
-#'
-#' # Import a JSON config
-#' config <- import_config("my_config.json", "json")
-#' }
+#' unlink(config_path)
 #'
 #' @seealso \code{\link{write_config}}, \code{\link{mk_pkg_from_config}}
 #' @importFrom configr read.config
@@ -84,8 +82,7 @@ import_config <- function(path, file_type = "yaml") {
 #' @return Invisibly returns TRUE on success.
 #'
 #' @examples
-#' \dontrun{
-#' # Create a configuration
+#' # Create a configuration and write it to a temp file
 #' config <- list(
 #'   pkg_name = "mypackage",
 #'   first_name = "Jane",
@@ -95,13 +92,12 @@ import_config <- function(path, file_type = "yaml") {
 #'   git = FALSE,
 #'   license = "MIT"
 #' )
+#' config_path <- tempfile(fileext = ".yaml")
+#' write_config(config_path, config)
 #'
-#' # Write to file
-#' write_config("configs/my_package.yaml", config)
-#'
-#' # Later, create package from this config
-#' mk_pkg_from_config("configs/my_package.yaml")
-#' }
+#' # Verify the file was created
+#' import_config(config_path, "yaml")
+#' unlink(config_path)
 #'
 #' @seealso \code{\link{import_config}}, \code{\link{mk_pkg_from_config}}
 #' @importFrom configr write.config

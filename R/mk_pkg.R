@@ -158,38 +158,32 @@ setup_license <- function(license, author) {
 #'     \item \code{success}: TRUE if package was created successfully
 #'   }
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive()
 #' # Create a simple package with MIT license
+#' pkg_dir <- file.path(tempdir(), "mypackage")
 #' mk_pkg(
-#'   path = "mypackage",
+#'   path = pkg_dir,
 #'   author = "Jane Doe",
 #'   email = "jane.doe@example.com",
 #'   git = FALSE,
+#'   check_pkg_name = FALSE,
 #'   pkgdown = FALSE
 #' )
+#' unlink(pkg_dir, recursive = TRUE)
 #'
-#' # Create a package without email
+#' # Create a package with GPL-3 license
+#' pkg_dir <- file.path(tempdir(), "analysisPkg")
 #' mk_pkg(
-#'   path = "simplepackage",
-#'   author = "Jane Doe",
-#'   git = FALSE,
-#'   pkgdown = FALSE
-#' )
-#'
-#' # Create a package with Git and GPL-3 license
-#' mk_pkg(
-#'   path = "~/projects/analysisPkg",
+#'   path = pkg_dir,
 #'   author = "John Smith Wilson",
 #'   email = "john@example.com",
-#'   git = TRUE,
-#'   git_username = "jsmith",
-#'   git_email = "john@example.com",
-#'   license = "GPL-3"
+#'   git = FALSE,
+#'   check_pkg_name = FALSE,
+#'   license = "GPL-3",
+#'   pkgdown = FALSE
 #' )
-#' }
+#' unlink(pkg_dir, recursive = TRUE)
 #'
-#' @import usethis
 #' @importFrom available available
 #' @importFrom desc desc
 #' @importFrom withr defer
@@ -414,21 +408,25 @@ mk_pkg <- function(
 #'
 #' @return Invisibly returns a list with package information (see \code{\link{mk_pkg}}).
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive()
 #' # Create a config file
+#' config_path <- file.path(tempdir(), "pkg_config.yaml")
 #' config <- list(
 #'   pkg_name = "mypackage",
 #'   first_name = "Jane",
 #'   last_name = "Doe",
 #'   email = "jane@example.com",
-#'   license = "MIT"
+#'   license = "MIT",
+#'   git = FALSE,
+#'   check_pkg_name = FALSE,
+#'   pkgdown = FALSE
 #' )
-#' write_config("pkg_config.yaml", config)
+#' write_config(config_path, config)
 #'
 #' # Create package from config
-#' mk_pkg_from_config("pkg_config.yaml", file_type = "yaml")
-#' }
+#' withr::with_dir(tempdir(), mk_pkg_from_config(config_path, file_type = "yaml"))
+#' unlink(file.path(tempdir(), "mypackage"), recursive = TRUE)
+#' unlink(config_path)
 #'
 #' @seealso \code{\link{mk_pkg}}, \code{\link{import_config}}, \code{\link{write_config}}
 #' @export
@@ -445,7 +443,7 @@ mk_pkg_from_config <- function(config_path, file_type = "yaml") {
 
   # Import configuration data with error handling
   config_data <- tryCatch(
-    pkgmkr::import_config(config_path, file_type),
+    import_config(config_path, file_type),
     error = function(e) {
       stop(
         "Failed to read configuration file '",

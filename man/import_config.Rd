@@ -25,14 +25,12 @@ contain valid YAML or JSON. If the file is malformed, a helpful error message
 will indicate the parsing issue.
 }
 \examples{
-\dontrun{
-# Import a YAML config
-config <- import_config("my_config.yaml", "yaml")
+# Write a temporary YAML config, then import it
+config_path <- tempfile(fileext = ".yaml")
+writeLines("pkg_name: demopkg\nfirst_name: Jane\nlast_name: Doe", config_path)
+config <- import_config(config_path, "yaml")
 print(config$pkg_name)
-
-# Import a JSON config
-config <- import_config("my_config.json", "json")
-}
+unlink(config_path)
 
 }
 \seealso{

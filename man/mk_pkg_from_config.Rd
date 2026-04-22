@@ -31,21 +31,26 @@ Optional fields include: \code{email}, \code{readme_md}, \code{git}, \code{git_u
 \code{git_email}, \code{check_pkg_name}, \code{license}, and \code{pkgdown}.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Create a config file
+config_path <- file.path(tempdir(), "pkg_config.yaml")
 config <- list(
   pkg_name = "mypackage",
   first_name = "Jane",
   last_name = "Doe",
   email = "jane@example.com",
-  license = "MIT"
+  license = "MIT",
+  git = FALSE,
+  check_pkg_name = FALSE,
+  pkgdown = FALSE
 )
-write_config("pkg_config.yaml", config)
+write_config(config_path, config)
 
 # Create package from config
-mk_pkg_from_config("pkg_config.yaml", file_type = "yaml")
-}
-
+withr::with_dir(tempdir(), mk_pkg_from_config(config_path, file_type = "yaml"))
+unlink(file.path(tempdir(), "mypackage"), recursive = TRUE)
+unlink(config_path)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link{mk_pkg}}, \code{\link{import_config}}, \code{\link{write_config}}
