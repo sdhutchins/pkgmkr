@@ -16,7 +16,7 @@
 #'
 #' @examples
 #' # Write a temporary YAML config, then import it
-#' config_path <- tempfile(fileext = ".yaml")
+#' config_path <- tempfile(fileext = ".yml")
 #' writeLines("pkg_name: demopkg\nfirst_name: Jane\nlast_name: Doe", config_path)
 #' config <- import_config(config_path, "yaml")
 #' print(config$pkg_name)
@@ -92,7 +92,7 @@ import_config <- function(path, file_type = "yaml") {
 #'   git = FALSE,
 #'   license = "MIT"
 #' )
-#' config_path <- tempfile(fileext = ".yaml")
+#' config_path <- tempfile(fileext = ".yml")
 #' write_config(config_path, config)
 #'
 #' # Verify the file was created

@@ -3,7 +3,7 @@ library(testthat)
 # Test import_config function
 test_that("import_config reads valid YAML config file", {
   tmp_dir <- withr::local_tempdir()
-  config_path <- file.path(tmp_dir, "test_config.yaml")
+  config_path <- file.path(tmp_dir, "test_config.yml")
 
   # Create a simple config file
   config_content <- "
@@ -27,7 +27,7 @@ license: MIT
 # Test import_config with non-existent file
 test_that("import_config fails with non-existent file", {
   expect_error(
-    import_config("/path/that/does/not/exist.yaml", "yaml"),
+    import_config("/path/that/does/not/exist.yml", "yaml"),
     "not found"
   )
 })
@@ -35,7 +35,7 @@ test_that("import_config fails with non-existent file", {
 # Test import_config with invalid file type
 test_that("import_config validates file_type parameter", {
   tmp_dir <- withr::local_tempdir()
-  config_path <- file.path(tmp_dir, "test_config.yaml")
+  config_path <- file.path(tmp_dir, "test_config.yml")
   writeLines("pkg_name: test", config_path)
 
   expect_error(
@@ -60,7 +60,7 @@ test_that("import_config validates path parameter", {
 # Test write_config function
 test_that("write_config creates valid YAML config file", {
   tmp_dir <- withr::local_tempdir()
-  config_path <- file.path(tmp_dir, "output_config.yaml")
+  config_path <- file.path(tmp_dir, "output_config.yml")
 
   config_data <- list(
     pkg_name = "mypkg",
@@ -84,7 +84,7 @@ test_that("write_config creates valid YAML config file", {
 # Test write_config creates directories if needed
 test_that("write_config creates parent directories", {
   tmp_dir <- withr::local_tempdir()
-  config_path <- file.path(tmp_dir, "nested", "dir", "config.yaml")
+  config_path <- file.path(tmp_dir, "nested", "dir", "config.yml")
 
   config_data <- list(pkg_name = "test")
 
@@ -102,12 +102,12 @@ test_that("write_config validates inputs", {
   )
 
   expect_error(
-    write_config("/tmp/test.yaml", NULL),
+    write_config("/tmp/test.yml", NULL),
     "config_data.*cannot be NULL"
   )
 
   expect_error(
-    write_config("/tmp/test.yaml", "not a list"),
+    write_config("/tmp/test.yml", "not a list"),
     "config_data.*must be a list"
   )
 })
@@ -117,7 +117,7 @@ test_that("mk_pkg_from_config creates package from valid config", {
   skip_on_cran()
 
   tmp_dir <- withr::local_tempdir()
-  config_path <- file.path(tmp_dir, "pkg_config.yaml")
+  config_path <- file.path(tmp_dir, "pkg_config.yml")
 
   # Create config file
   config_content <- "
@@ -146,7 +146,7 @@ pkgdown: false
 # Test mk_pkg_from_config with missing required fields
 test_that("mk_pkg_from_config validates required config fields", {
   tmp_dir <- withr::local_tempdir()
-  config_path <- file.path(tmp_dir, "incomplete_config.yaml")
+  config_path <- file.path(tmp_dir, "incomplete_config.yml")
 
   # Config missing last_name
   config_content <- "
@@ -164,7 +164,7 @@ first_name: Bob
 # Test mk_pkg_from_config with non-existent file
 test_that("mk_pkg_from_config fails with non-existent file", {
   expect_error(
-    mk_pkg_from_config("/path/that/does/not/exist.yaml", "yaml"),
+    mk_pkg_from_config("/path/that/does/not/exist.yml", "yaml"),
     "not found"
   )
 })
@@ -174,7 +174,7 @@ test_that("mk_pkg_from_config uses defaults for optional fields", {
   skip_on_cran()
 
   tmp_dir <- withr::local_tempdir()
-  config_path <- file.path(tmp_dir, "minimal_config.yaml")
+  config_path <- file.path(tmp_dir, "minimal_config.yml")
 
   # Minimal config with only required fields
   config_content <- "

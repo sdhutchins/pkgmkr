@@ -77,8 +77,8 @@ config <- list(
   license = "MIT"
 )
 
-write_config("my_config.yaml", config)
-mk_pkg_from_config("my_config.yaml")
+write_config("my_config.yml", config)
+mk_pkg_from_config("my_config.yml")
 ```
 
 ### Smart Validation

@@ -410,7 +410,7 @@ mk_pkg <- function(
 #'
 #' @examplesIf interactive()
 #' # Create a config file
-#' config_path <- file.path(tempdir(), "pkg_config.yaml")
+#' config_path <- file.path(tempdir(), "pkg_config.yml")
 #' config <- list(
 #'   pkg_name = "mypackage",
 #'   first_name = "Jane",

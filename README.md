@@ -102,10 +102,10 @@ config <- list(
 )
 
 # Write the configuration
-write_config("my_package_config.yaml", config)
+write_config("my_package_config.yml", config)
 
 # Create package from configuration
-mk_pkg_from_config("my_package_config.yaml", file_type = "yaml")
+mk_pkg_from_config("my_package_config.yml", file_type = "yaml")
 ```
 
 ## Parameters

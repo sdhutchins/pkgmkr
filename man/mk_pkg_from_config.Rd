@@ -33,7 +33,7 @@ Optional fields include: \code{email}, \code{readme_md}, \code{git}, \code{git_u
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Create a config file
-config_path <- file.path(tempdir(), "pkg_config.yaml")
+config_path <- file.path(tempdir(), "pkg_config.yml")
 config <- list(
   pkg_name = "mypackage",
   first_name = "Jane",

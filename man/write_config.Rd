@@ -36,7 +36,7 @@ config <- list(
   git = FALSE,
   license = "MIT"
 )
-config_path <- tempfile(fileext = ".yaml")
+config_path <- tempfile(fileext = ".yml")
 write_config(config_path, config)
 
 # Verify the file was created

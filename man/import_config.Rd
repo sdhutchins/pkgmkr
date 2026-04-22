@@ -26,7 +26,7 @@ will indicate the parsing issue.
 }
 \examples{
 # Write a temporary YAML config, then import it
-config_path <- tempfile(fileext = ".yaml")
+config_path <- tempfile(fileext = ".yml")
 writeLines("pkg_name: demopkg\nfirst_name: Jane\nlast_name: Doe", config_path)
 config <- import_config(config_path, "yaml")
 print(config$pkg_name)
