@@ -2,8 +2,12 @@ Package: pkgmkr
 Title: Create an R Package with One Simple Function
 Version: 0.1.0
 Authors@R: 
-    person(given = "Shaurita D.", family = "Hutchins", email = "shaurita.d.hutchins@gmail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-7687-0059", copyright_holder = "Shaurita D. Hutchins"))
+    person(
+    given = "Shaurita D.", family = "Hutchins",
+    email = "shaurita.d.hutchins@gmail.com",
+    role = c("aut", "cre", "cph"),
+    comment = c(ORCID = "0000-0002-7687-0059")
+    )
 Description: Simplifies the process of creating R packages by providing a single,
     straightforward function that handles package initialization, Git integration,
     license selection, README generation, and pkgdown site setup. Package creation
