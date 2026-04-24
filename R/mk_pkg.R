@@ -158,7 +158,7 @@ setup_license <- function(license, author) {
 #'     \item \code{success}: TRUE if package was created successfully
 #'   }
 #'
-#' @examplesIf interactive()
+#' @examples
 #' # Create a simple package with MIT license
 #' pkg_dir <- file.path(tempdir(), "mypackage")
 #' mk_pkg(
@@ -187,6 +187,7 @@ setup_license <- function(license, author) {
 #' @importFrom available available
 #' @importFrom desc desc
 #' @importFrom withr defer
+#' @importFrom utils person
 #' @export
 
 mk_pkg <- function(
@@ -206,8 +207,9 @@ mk_pkg <- function(
     stop("'path' must be provided and cannot be empty.", call. = FALSE)
   }
 
-  # Convert to absolute path early for consistency
-  path <- normalizePath(path, mustWork = FALSE)
+  # Resolve the target path before it exists so usethis project helpers do not
+  # depend on the caller's current working directory.
+  path <- as.character(fs::path_abs(path))
 
   # Check if directory already exists (do this early)
   if (dir.exists(path)) {
@@ -291,7 +293,11 @@ mk_pkg <- function(
       if (readme_md) {
         message("Creating README.md...")
         tryCatch(
-          usethis::use_readme_md(open = FALSE),
+          usethis::with_project(
+            path,
+            usethis::use_readme_md(open = FALSE),
+            force = TRUE
+          ),
           error = function(e) {
             warning("Failed to create README.md: ", e$message, call. = FALSE)
           }
@@ -408,7 +414,7 @@ mk_pkg <- function(
 #'
 #' @return Invisibly returns a list with package information (see \code{\link{mk_pkg}}).
 #'
-#' @examplesIf interactive()
+#' @examples
 #' # Create a config file
 #' config_path <- file.path(tempdir(), "pkg_config.yml")
 #' config <- list(

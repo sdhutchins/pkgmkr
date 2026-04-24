@@ -73,7 +73,6 @@ If any operation fails (e.g., Git/GitHub setup), the function continues and warn
 rather than failing completely, ensuring you still get a usable package structure.
 }
 \examples{
-\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Create a simple package with MIT license
 pkg_dir <- file.path(tempdir(), "mypackage")
 mk_pkg(
@@ -98,5 +97,5 @@ mk_pkg(
   pkgdown = FALSE
 )
 unlink(pkg_dir, recursive = TRUE)
-\dontshow{\}) # examplesIf}
+
 }
