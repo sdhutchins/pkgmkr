@@ -31,7 +31,6 @@ Optional fields include: \code{email}, \code{readme_md}, \code{git}, \code{git_u
 \code{git_email}, \code{check_pkg_name}, \code{license}, and \code{pkgdown}.
 }
 \examples{
-\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # Create a config file
 config_path <- file.path(tempdir(), "pkg_config.yml")
 config <- list(
@@ -50,7 +49,7 @@ write_config(config_path, config)
 withr::with_dir(tempdir(), mk_pkg_from_config(config_path, file_type = "yaml"))
 unlink(file.path(tempdir(), "mypackage"), recursive = TRUE)
 unlink(config_path)
-\dontshow{\}) # examplesIf}
+
 }
 \seealso{
 \code{\link{mk_pkg}}, \code{\link{import_config}}, \code{\link{write_config}}
