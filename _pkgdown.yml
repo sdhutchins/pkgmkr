@@ -65,7 +65,7 @@ navbar:
   type: dark
   # Navbar structure: defines order of components
   structure:
-    left: [intro, reference]
+    left: [intro, reference, news]
     right: [search, github]
   # Component definitions
   components:
