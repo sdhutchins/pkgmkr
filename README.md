@@ -5,7 +5,9 @@
 [![Travis build status](https://travis-ci.com/sdhutchins/pkgmkr.svg?branch=master)](https://travis-ci.org/sdhutchins/pkgmkr)
 <!-- badges: end -->
 
-`pkgmkr` aims to simplify the process of creating R packages by providing a single, straightforward function. It is designed to be user-friendly and to handle various package configurations, including optional Git integration, license selection, and more.
+`pkgmkr` simplifies the process of creating R packages by providing a single, straightforward function.
+
+It is designed to be user-friendly and to handle various package configurations, including optional Git integration, license selection, and more.
 
 ## Features
 
@@ -20,21 +22,16 @@
 
 ## Installation
 
-In the future, you will be able to install the released version of pkgmkr from [CRAN](https://CRAN.R-project.org) with:
+Install `pkgmkr` from r-universe:
 
 ``` r
-install.packages("pkgmkr")
-```
-
-Currently, `pkgmkr` can only be installed using devtools.
-
-```r
-if (!requireNamespace("devtools", quietly = TRUE)) {
-  install.packages("devtools")
-}
-
-# Install pkgmkr from GitHub
-devtools::install_github("sdhutchins/pkgmkr")
+install.packages(
+  "pkgmkr",
+  repos = c(
+    "https://sdhutchins.r-universe.dev",
+    "https://cloud.r-project.org"
+  )
+)
 ```
 
 

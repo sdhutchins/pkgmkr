@@ -9,9 +9,10 @@ url: https://shauritahutchins.com/pkgmkr/
 # Template and styling
 # See https://pkgdown.r-lib.org/articles/customise.html
 template:
-  bootstrap: 5
-  theme: pygments
-  
+  bslib:
+    version: 5
+    brand: _brand.yml
+
 # Home page configuration
 home:
   title: "pkgmkr: Create R Packages with One Simple Function"
@@ -60,8 +61,8 @@ reference:
 # See https://pkgdown.r-lib.org/articles/customise.html#navbar
 navbar:
   # Navbar background color (matches primary theme color)
-  bg: "#674655"
-  
+  bg: primary
+  type: dark
   # Navbar structure: defines order of components
   structure:
     left: [intro, reference]
