@@ -9,3 +9,5 @@
 ^[.]?air[.]toml$
 ^vignettes/articles$
 ^CONTRIBUTING\.md$
+^\.positai$
+^\.claude$
