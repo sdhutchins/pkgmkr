@@ -1,4 +1,4 @@
-# pkgmkr 0.1.1
+# pkgmkr 0.2.0
 
 Maintenance release focused on package infrastructure, documentation, and site
 publishing.
