@@ -1,3 +1,25 @@
+# pkgmkr 0.1.1
+
+Maintenance release focused on package infrastructure, documentation, and site
+publishing.
+
+## Infrastructure and Release Prep
+
+- Added GitHub Actions workflows for `R CMD check` and pkgdown deployment.
+- Moved the contributor guide to `.github/CONTRIBUTING.md` so GitHub can use it
+  directly while keeping it out of built package contents.
+- Ignored assistant-specific local metadata and removed an unused local
+  `air.toml` file from the repository.
+
+## Documentation and Website
+
+- Refreshed the pkgdown brand configuration and removed the older custom SCSS
+  override in favor of the new brand-driven theme setup.
+- Rewrote the getting-started article to better explain the one-call and
+  config-file workflows.
+- Rebuilt the pkgdown site to publish the updated article, contributing guide,
+  and changelog pages.
+
 # pkgmkr 0.1.0
 
 Initial release of `pkgmkr`.
