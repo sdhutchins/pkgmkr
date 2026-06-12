@@ -9,7 +9,7 @@ a convenient way to store and reuse package creation settings."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">pkgmkr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,6 +19,7 @@ a convenient way to store and reuse package creation settings."></head><body>
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/pkgmkr.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/sdhutchins/pkgmkr" aria-label="View source code on GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -90,18 +91,18 @@ a convenient way to store and reuse package creation settings.</p>
 <span class="r-in"><span>  pkgdown <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="write_config.html">write_config</a></span><span class="op">(</span><span class="va">config_path</span>, <span class="va">config</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Configuration written successfully to: /var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T//RtmpP2OjS2/pkg_config.yml</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Configuration written successfully to: /var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T//RtmpEiB1Gb/pkg_config.yml</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create package from config</span></span></span>
 <span class="r-in"><span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_dir.html" class="external-link">with_dir</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu">mk_pkg_from_config</span><span class="op">(</span><span class="va">config_path</span>, file_type <span class="op">=</span> <span class="st">"yaml"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating package from config file: /var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T//RtmpP2OjS2/pkg_config.yml</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Creating package from config file: /var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T//RtmpEiB1Gb/pkg_config.yml</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Creating package structure...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Creating</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage/"><span style="color: #0000BB;">/private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage/</span></a>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage/"><span style="color: #0000BB;">/private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage/</span></a>.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Setting active project to</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"/private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage"</span>.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Creating <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage/R/"><span style="color: #0000BB;">R/</span></a>.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage/DESCRIPTION"><span style="color: #0000BB;">DESCRIPTION</span></a>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"/private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage"</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Creating <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage/R/"><span style="color: #0000BB;">R/</span></a>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage/DESCRIPTION"><span style="color: #0000BB;">DESCRIPTION</span></a>.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">Package</span>: mypackage</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">Title</span>: What the Package Does (One Line, Title Case)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">Version</span>: 0.0.0.9000</span>
@@ -113,32 +114,32 @@ a convenient way to store and reuse package creation settings.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">Encoding</span>: UTF-8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">Roxygen</span>: list(markdown = TRUE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">RoxygenNote</span>: 7.3.3</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage/NAMESPACE"><span style="color: #0000BB;">NAMESPACE</span></a>.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage/mypackage.Rproj"><span style="color: #0000BB;">mypackage.Rproj</span></a>.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Adding <span style="color: #0000BB;">"^mypackage\\.Rproj$"</span> to <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage/.Rbuildignore"><span style="color: #0000BB;">.Rbuildignore</span></a>.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Adding <span style="color: #0000BB;">".Rproj.user"</span> to <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage/.gitignore"><span style="color: #0000BB;">.gitignore</span></a>.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Adding <span style="color: #0000BB;">"^\\.Rproj\\.user$"</span> to <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage/.Rbuildignore"><span style="color: #0000BB;">.Rbuildignore</span></a>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage/NAMESPACE"><span style="color: #0000BB;">NAMESPACE</span></a>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage/mypackage.Rproj"><span style="color: #0000BB;">mypackage.Rproj</span></a>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Adding <span style="color: #0000BB;">"^mypackage\\.Rproj$"</span> to <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage/.Rbuildignore"><span style="color: #0000BB;">.Rbuildignore</span></a>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Adding <span style="color: #0000BB;">".Rproj.user"</span> to <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage/.gitignore"><span style="color: #0000BB;">.gitignore</span></a>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Adding <span style="color: #0000BB;">"^\\.Rproj\\.user$"</span> to <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage/.Rbuildignore"><span style="color: #0000BB;">.Rbuildignore</span></a>.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Setting active project to</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"/Users/shutchin/Documents/Git-Repos/packages/pkgmkr"</span>.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Setting active project to</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"/private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage"</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"/private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage"</span>.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Setting up DESCRIPTION file...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Creating README.md...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Setting active project to</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"/private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage"</span>.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage/README.md"><span style="color: #0000BB;">README.md</span></a>.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">☐</span> Update <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage/README.md"><span style="color: #0000BB;">README.md</span></a> to include installation instructions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"/private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage"</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage/README.md"><span style="color: #0000BB;">README.md</span></a>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">☐</span> Update <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage/README.md"><span style="color: #0000BB;">README.md</span></a> to include installation instructions.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Setting active project to</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"/private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage"</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"/private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage"</span>.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Setting up MIT license...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Adding <span style="color: #0000BB;">"MIT + file LICENSE"</span> to <span style="color: #00BB00;">License</span>.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/LICENSE"><span style="color: #0000BB;">LICENSE</span></a>.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/LICENSE.md"><span style="color: #0000BB;">LICENSE.md</span></a>.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Adding <span style="color: #0000BB;">"^LICENSE\\.md$"</span> to <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/.Rbuildignore"><span style="color: #0000BB;">.Rbuildignore</span></a>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/LICENSE"><span style="color: #0000BB;">LICENSE</span></a>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/LICENSE.md"><span style="color: #0000BB;">LICENSE.md</span></a>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Adding <span style="color: #0000BB;">"^LICENSE\\.md$"</span> to <a href="file:///private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/.Rbuildignore"><span style="color: #0000BB;">.Rbuildignore</span></a>.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ============================================================</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> SUCCESS! Package 'mypackage' created at:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> /private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpP2OjS2/mypackage</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> /private/var/folders/x3/bn50kh8d2gq567vs62v09ncm0000gq/T/RtmpEiB1Gb/mypackage</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ============================================================</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Setting active project to</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"/Users/shutchin/Documents/Git-Repos/packages/pkgmkr"</span>.</span>

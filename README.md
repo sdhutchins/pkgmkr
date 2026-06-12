@@ -2,7 +2,10 @@
 # pkgmkr
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.com/sdhutchins/pkgmkr.svg?branch=master)](https://travis-ci.org/sdhutchins/pkgmkr)
+[![R-CMD-check](https://github.com/sdhutchins/pkgmkr/actions/workflows/r-cmd-check.yaml/badge.svg?branch=main)](https://github.com/sdhutchins/pkgmkr/actions/workflows/r-cmd-check.yaml)
+[![pkgdown](https://github.com/sdhutchins/pkgmkr/actions/workflows/pkgdown.yaml/badge.svg?branch=main)](https://github.com/sdhutchins/pkgmkr/actions/workflows/pkgdown.yaml)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![r-universe](https://sdhutchins.r-universe.dev/badges/pkgmkr)](https://sdhutchins.r-universe.dev/pkgmkr)
 <!-- badges: end -->
 
 `pkgmkr` simplifies the process of creating R packages by providing a single, straightforward function.
@@ -132,4 +135,4 @@ All validation errors provide clear, helpful messages to guide you in fixing the
 
 ## Contributing
 
-Contributions are welcome! Please read the CONTRIBUTING.md for guidelines on how to contribute to this project.
+Contributions are welcome! Please read [CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines on how to contribute to this project.

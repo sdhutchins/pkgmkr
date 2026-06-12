@@ -15,15 +15,15 @@ library(pkgmkr)
 
 # Start here
 
-`pkgmkr` helps you make a new R package without doing the same setup by hand
-every time. You can use it for a quick one-time setup or with a config file you
+`pkgmkr` helps you create a new R package without doing the same setup by hand
+every time. 
+
+It can be used for a quick one-time setup or with a config file you
 reuse for future packages.
 
-This tutorial starts simple and then shows the reusable config-file workflow.
+## Create a package with one function call
 
-## Step 1: Create a package with one function call
-
-Start with `mk_pkg()` if you want a new package and the main setup files.
+Start with `mk_pkg()` if you want a new package with the main setup files.
 
 ```{r eval = FALSE}
 library(pkgmkr)
@@ -47,10 +47,10 @@ This creates a package called `mypackage` in your current working directory.
 - `email` is optional. If you include it, it is added to the package metadata.
 - `git` controls whether a Git repository is initialized.
 - `check_pkg_name` controls whether `pkgmkr` checks if the package name is
-  available.
+  available using the `available` package.
 - `pkgdown` controls whether a pkgdown site is set up and built.
 
-## Step 2: Understand what gets created
+## What gets created when you run `mk_pkg()`
 
 `pkgmkr` handles the basic setup so you can start writing code sooner.
 
@@ -66,7 +66,7 @@ usually make by hand:
 - Git setup if `git = TRUE`
 - pkgdown setup if `pkgdown = TRUE`
 
-## Step 3: Use options when you need more control
+## Use options when you need more control
 
 You do not need every argument the first time. Start small, then add options
 when you need them.
@@ -88,7 +88,7 @@ mk_pkg(
 
 Use this when you already want Git and a pkgdown site.
 
-## Step 4: Create a reusable package template with a config file
+## Create a reusable package template with a config file
 
 If you make packages often, keep one config file with your usual settings. Then
 you can reuse it instead of typing the same values each time.
@@ -103,7 +103,35 @@ fields:
 You can also include optional fields like `email`, `git`, `license`,
 `check_pkg_name`, `readme_md`, and `pkgdown`.
 
-### Write a reusable config file
+### Example YAML config
+
+Save a file such as `standard-package.yml`:
+
+```yaml
+pkg_name: mypackage
+first_name: Jane
+last_name: Doe
+email: jane.doe@example.com
+readme_md: true
+git: false
+check_pkg_name: true
+license: MIT
+pkgdown: false
+```
+
+This gives you a reusable template. For most new packages, you only need to
+change `pkg_name`.
+
+### Create the package from the YAML file
+
+```{r eval = FALSE}
+mk_pkg_from_config("standard-package.yml", file_type = "yaml")
+```
+
+This helps you keep package setup consistent across projects.
+
+If you want to generate the YAML file from R instead of writing it by hand, use
+`write_config()`.
 
 ```{r eval = FALSE}
 standard_config <- list(
@@ -121,29 +149,7 @@ standard_config <- list(
 write_config("standard-package.yml", standard_config)
 ```
 
-This file can be your standard package template. Most of the time, you only
-need to change `pkg_name` for a new project.
-
-### Create a package from the config file
-
-```{r eval = FALSE}
-mk_pkg_from_config("standard-package.yml", file_type = "yaml")
-```
-
-This helps you keep package setup consistent across projects.
-
-## Step 5: Reuse the same template for future packages
-
-A practical pattern is:
-
-1. Keep one standard config file with your usual defaults.
-2. Copy it or edit it for a new package.
-3. Change package-specific values such as `pkg_name`.
-4. Run `mk_pkg_from_config()`.
-
-This gives you a simple process you can use again.
-
-## Step 6: Know the built-in validation rules
+## Know the built-in validation rules
 
 `pkgmkr` checks common inputs before it creates the package. This helps catch
 problems early.

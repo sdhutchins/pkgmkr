@@ -68,15 +68,14 @@
 <div class="section level2">
 <h2 id="start-here">Start here<a class="anchor" aria-label="anchor" href="#start-here"></a>
 </h2>
-<p><code>pkgmkr</code> helps you make a new R package without doing the
-same setup by hand every time. You can use it for a quick one-time setup
-or with a config file you reuse for future packages.</p>
-<p>This tutorial starts simple and then shows the reusable config-file
-workflow.</p>
+<p><code>pkgmkr</code> helps you create a new R package without doing
+the same setup by hand every time.</p>
+<p>It can be used for a quick one-time setup or with a config file you
+reuse for future packages.</p>
 <div class="section level3">
-<h3 id="step-1-create-a-package-with-one-function-call">Step 1: Create a package with one function call<a class="anchor" aria-label="anchor" href="#step-1-create-a-package-with-one-function-call"></a>
+<h3 id="create-a-package-with-one-function-call">Create a package with one function call<a class="anchor" aria-label="anchor" href="#create-a-package-with-one-function-call"></a>
 </h3>
-<p>Start with <code><a href="../reference/mk_pkg.html">mk_pkg()</a></code> if you want a new package and the
+<p>Start with <code><a href="../reference/mk_pkg.html">mk_pkg()</a></code> if you want a new package with the
 main setup files.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shauritahutchins.com/pkgmkr/">pkgmkr</a></span><span class="op">)</span></span>
@@ -108,7 +107,8 @@ the package metadata.</li>
 initialized.</li>
 <li>
 <code>check_pkg_name</code> controls whether <code>pkgmkr</code>
-checks if the package name is available.</li>
+checks if the package name is available using the <code>available</code>
+package.</li>
 <li>
 <code>pkgdown</code> controls whether a pkgdown site is set up and
 built.</li>
@@ -116,7 +116,7 @@ built.</li>
 </div>
 </div>
 <div class="section level3">
-<h3 id="step-2-understand-what-gets-created">Step 2: Understand what gets created<a class="anchor" aria-label="anchor" href="#step-2-understand-what-gets-created"></a>
+<h3 id="what-gets-created-when-you-run-mk_pkg">What gets created when you run <code>mk_pkg()</code><a class="anchor" aria-label="anchor" href="#what-gets-created-when-you-run-mk_pkg"></a>
 </h3>
 <p><code>pkgmkr</code> handles the basic setup so you can start writing
 code sooner.</p>
@@ -142,7 +142,7 @@ would usually make by hand:</p>
 </ul>
 </div>
 <div class="section level3">
-<h3 id="step-3-use-options-when-you-need-more-control">Step 3: Use options when you need more control<a class="anchor" aria-label="anchor" href="#step-3-use-options-when-you-need-more-control"></a>
+<h3 id="use-options-when-you-need-more-control">Use options when you need more control<a class="anchor" aria-label="anchor" href="#use-options-when-you-need-more-control"></a>
 </h3>
 <p>You do not need every argument the first time. Start small, then add
 options when you need them.</p>
@@ -161,7 +161,7 @@ options when you need them.</p>
 <p>Use this when you already want Git and a pkgdown site.</p>
 </div>
 <div class="section level3">
-<h3 id="step-4-create-a-reusable-package-template-with-a-config-file">Step 4: Create a reusable package template with a config file<a class="anchor" aria-label="anchor" href="#step-4-create-a-reusable-package-template-with-a-config-file"></a>
+<h3 id="create-a-reusable-package-template-with-a-config-file">Create a reusable package template with a config file<a class="anchor" aria-label="anchor" href="#create-a-reusable-package-template-with-a-config-file"></a>
 </h3>
 <p>If you make packages often, keep one config file with your usual
 settings. Then you can reuse it instead of typing the same values each
@@ -177,9 +177,30 @@ least these required fields:</p>
 <code>git</code>, <code>license</code>, <code>check_pkg_name</code>,
 <code>readme_md</code>, and <code>pkgdown</code>.</p>
 <div class="section level4">
-<h4 id="write-a-reusable-config-file">Write a reusable config file<a class="anchor" aria-label="anchor" href="#write-a-reusable-config-file"></a>
+<h4 id="example-yaml-config">Example YAML config<a class="anchor" aria-label="anchor" href="#example-yaml-config"></a>
 </h4>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>Save a file such as <code>standard-package.yml</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">pkg_name</span><span class="kw">:</span><span class="at"> mypackage</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">first_name</span><span class="kw">:</span><span class="at"> Jane</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="fu">last_name</span><span class="kw">:</span><span class="at"> Doe</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="fu">email</span><span class="kw">:</span><span class="at"> jane.doe@example.com</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="fu">readme_md</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="fu">git</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="fu">check_pkg_name</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="fu">license</span><span class="kw">:</span><span class="at"> MIT</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="fu">pkgdown</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span></code></pre></div>
+<p>This gives you a reusable template. For most new packages, you only
+need to change <code>pkg_name</code>.</p>
+</div>
+<div class="section level4">
+<h4 id="create-the-package-from-the-yaml-file">Create the package from the YAML file<a class="anchor" aria-label="anchor" href="#create-the-package-from-the-yaml-file"></a>
+</h4>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/mk_pkg_from_config.html">mk_pkg_from_config</a></span><span class="op">(</span><span class="st">"standard-package.yml"</span>, file_type <span class="op">=</span> <span class="st">"yaml"</span><span class="op">)</span></span></code></pre></div>
+<p>This helps you keep package setup consistent across projects.</p>
+<p>If you want to generate the YAML file from R instead of writing it by
+hand, use <code><a href="../reference/write_config.html">write_config()</a></code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">standard_config</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  pkg_name <span class="op">=</span> <span class="st">"mypackage"</span>,</span>
 <span>  first_name <span class="op">=</span> <span class="st">"Jane"</span>,</span>
@@ -193,31 +214,10 @@ least these required fields:</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/write_config.html">write_config</a></span><span class="op">(</span><span class="st">"standard-package.yml"</span>, <span class="va">standard_config</span><span class="op">)</span></span></code></pre></div>
-<p>This file can be your standard package template. Most of the time,
-you only need to change <code>pkg_name</code> for a new project.</p>
-</div>
-<div class="section level4">
-<h4 id="create-a-package-from-the-config-file">Create a package from the config file<a class="anchor" aria-label="anchor" href="#create-a-package-from-the-config-file"></a>
-</h4>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/mk_pkg_from_config.html">mk_pkg_from_config</a></span><span class="op">(</span><span class="st">"standard-package.yml"</span>, file_type <span class="op">=</span> <span class="st">"yaml"</span><span class="op">)</span></span></code></pre></div>
-<p>This helps you keep package setup consistent across projects.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="step-5-reuse-the-same-template-for-future-packages">Step 5: Reuse the same template for future packages<a class="anchor" aria-label="anchor" href="#step-5-reuse-the-same-template-for-future-packages"></a>
-</h3>
-<p>A practical pattern is:</p>
-<ol style="list-style-type: decimal">
-<li>Keep one standard config file with your usual defaults.</li>
-<li>Copy it or edit it for a new package.</li>
-<li>Change package-specific values such as <code>pkg_name</code>.</li>
-<li>Run <code><a href="../reference/mk_pkg_from_config.html">mk_pkg_from_config()</a></code>.</li>
-</ol>
-<p>This gives you a simple process you can use again.</p>
-</div>
-<div class="section level3">
-<h3 id="step-6-know-the-built-in-validation-rules">Step 6: Know the built-in validation rules<a class="anchor" aria-label="anchor" href="#step-6-know-the-built-in-validation-rules"></a>
+<h3 id="know-the-built-in-validation-rules">Know the built-in validation rules<a class="anchor" aria-label="anchor" href="#know-the-built-in-validation-rules"></a>
 </h3>
 <p><code>pkgmkr</code> checks common inputs before it creates the
 package. This helps catch problems early.</p>
