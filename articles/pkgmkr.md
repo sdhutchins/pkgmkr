@@ -1,0 +1,186 @@
+# Get started with pkgmkr
+
+``` r
+
+library(pkgmkr)
+```
+
+## Start here
+
+`pkgmkr` helps you create a new R package without doing the same setup
+by hand every time.
+
+It can be used for a quick one-time setup or with a config file you
+reuse for future packages.
+
+### Create a package with one function call
+
+Start with
+[`mk_pkg()`](https://shauritahutchins.com/pkgmkr/reference/mk_pkg.md) if
+you want a new package with the main setup files.
+
+``` r
+
+library(pkgmkr)
+
+mk_pkg(
+  path = "mypackage",
+  author = "Jane Doe",
+  email = "jane.doe@example.com",
+  git = FALSE,
+  check_pkg_name = FALSE,
+  pkgdown = FALSE
+)
+```
+
+This creates a package called `mypackage` in your current working
+directory.
+
+#### What the main arguments do
+
+- `path` sets the package folder name or full path.
+- `author` is the author name. It must include a first and last name.
+- `email` is optional. If you include it, it is added to the package
+  metadata.
+- `git` controls whether a Git repository is initialized.
+- `check_pkg_name` controls whether `pkgmkr` checks if the package name
+  is available using the `available` package.
+- `pkgdown` controls whether a pkgdown site is set up and built.
+
+### What gets created when you run `mk_pkg()`
+
+`pkgmkr` handles the basic setup so you can start writing code sooner.
+
+After a successful run, your package will include the main files you
+would usually make by hand:
+
+- `DESCRIPTION` for package metadata
+- `NAMESPACE` for exported functions
+- `R/` for your package code
+- `man/` for generated documentation
+- license files based on your selected license
+- `README.md` if `readme_md = TRUE`
+- Git setup if `git = TRUE`
+- pkgdown setup if `pkgdown = TRUE`
+
+### Use options when you need more control
+
+You do not need every argument the first time. Start small, then add
+options when you need them.
+
+For example, if you want Git and pkgdown from the start:
+
+``` r
+
+mk_pkg(
+  path = "~/projects/myanalysispkg",
+  author = "Jane Doe",
+  email = "jane.doe@example.com",
+  git = TRUE,
+  git_username = "janedoe",
+  git_email = "jane.doe@example.com",
+  license = "GPL-3",
+  pkgdown = TRUE
+)
+```
+
+Use this when you already want Git and a pkgdown site.
+
+### Create a reusable package template with a config file
+
+If you make packages often, keep one config file with your usual
+settings. Then you can reuse it instead of typing the same values each
+time.
+
+[`mk_pkg_from_config()`](https://shauritahutchins.com/pkgmkr/reference/mk_pkg_from_config.md)
+expects a YAML or JSON file with at least these required fields:
+
+- `pkg_name`
+- `first_name`
+- `last_name`
+
+You can also include optional fields like `email`, `git`, `license`,
+`check_pkg_name`, `readme_md`, and `pkgdown`.
+
+#### Example YAML config
+
+Save a file such as `standard-package.yml`:
+
+``` yaml
+pkg_name: mypackage
+first_name: Jane
+last_name: Doe
+email: jane.doe@example.com
+readme_md: true
+git: false
+check_pkg_name: true
+license: MIT
+pkgdown: false
+```
+
+This gives you a reusable template. For most new packages, you only need
+to change `pkg_name`.
+
+#### Create the package from the YAML file
+
+``` r
+
+mk_pkg_from_config("standard-package.yml", file_type = "yaml")
+```
+
+This helps you keep package setup consistent across projects.
+
+If you want to generate the YAML file from R instead of writing it by
+hand, use
+[`write_config()`](https://shauritahutchins.com/pkgmkr/reference/write_config.md).
+
+``` r
+
+standard_config <- list(
+  pkg_name = "mypackage",
+  first_name = "Jane",
+  last_name = "Doe",
+  email = "jane.doe@example.com",
+  readme_md = TRUE,
+  git = FALSE,
+  check_pkg_name = TRUE,
+  license = "MIT",
+  pkgdown = FALSE
+)
+
+write_config("standard-package.yml", standard_config)
+```
+
+### Know the built-in validation rules
+
+`pkgmkr` checks common inputs before it creates the package. This helps
+catch problems early.
+
+- Package names must start with a letter.
+- Package names can contain only letters, numbers, and dots.
+- Package names cannot end with a dot.
+- Author names must include at least a first and last name.
+- Email addresses must be valid if provided.
+- Licenses must currently be `MIT` or `GPL-3`.
+- The target directory must not already exist.
+
+### Next steps
+
+After the package is created, a common next step is:
+
+1.  Add functions in `R/`.
+2.  Document them with roxygen comments.
+3.  Run `devtools::document()`.
+4.  Add tests under `tests/`.
+5.  Build or refine your pkgdown site if you enabled it.
+
+### Learn more
+
+- Browse the [reference
+  documentation](https://shauritahutchins.com/reference/) for more
+  details.
+- See [examples for
+  `mk_pkg()`](https://shauritahutchins.com/reference/mk_pkg.html#examples).
+- See [configuration
+  helpers](https://shauritahutchins.com/reference/write_config.md) for
+  the config-file workflow.
