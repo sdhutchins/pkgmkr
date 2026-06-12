@@ -9,7 +9,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/sdhutchins/pkgmkr/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/sdhutchins/pkgmkr/blob/v0.2.0/DESCRIPTION)
 
 Hutchins S (2026). *pkgmkr: Create an R Package with One Simple
 Function*. R package version 0.2.0,

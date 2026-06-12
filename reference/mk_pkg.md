@@ -116,8 +116,8 @@ mk_pkg(
   pkgdown = FALSE
 )
 #> Creating package structure...
-#> ✔ Creating /tmp/RtmpyZEKzv/mypackage/.
-#> ✔ Setting active project to "/tmp/RtmpyZEKzv/mypackage".
+#> ✔ Creating /tmp/RtmpwwActA/mypackage/.
+#> ✔ Setting active project to "/tmp/RtmpwwActA/mypackage".
 #> ✔ Creating R/.
 #> ✔ Writing DESCRIPTION.
 #> Package: mypackage
@@ -138,13 +138,13 @@ mk_pkg(
 #> ✔ Adding "^\\.Rproj\\.user$" to .Rbuildignore.
 #> ✔ Setting active project to "<no active project>".
 #> ✔ Setting active project to "/home/runner/work/pkgmkr/pkgmkr".
-#> ✔ Setting active project to "/tmp/RtmpyZEKzv/mypackage".
+#> ✔ Setting active project to "/tmp/RtmpwwActA/mypackage".
 #> Setting up DESCRIPTION file...
 #> Creating README.md...
-#> ✔ Setting active project to "/tmp/RtmpyZEKzv/mypackage".
+#> ✔ Setting active project to "/tmp/RtmpwwActA/mypackage".
 #> ✔ Writing README.md.
 #> ☐ Update README.md to include installation instructions.
-#> ✔ Setting active project to "/tmp/RtmpyZEKzv/mypackage".
+#> ✔ Setting active project to "/tmp/RtmpwwActA/mypackage".
 #> Setting up MIT license...
 #> ✔ Adding "MIT + file LICENSE" to License.
 #> ✔ Writing LICENSE.
@@ -153,7 +153,7 @@ mk_pkg(
 #> 
 #> ============================================================
 #> SUCCESS! Package 'mypackage' created at:
-#> /tmp/RtmpyZEKzv/mypackage
+#> /tmp/RtmpwwActA/mypackage
 #> ============================================================
 #> ✔ Setting active project to "/home/runner/work/pkgmkr/pkgmkr".
 unlink(pkg_dir, recursive = TRUE)
@@ -170,8 +170,8 @@ mk_pkg(
   pkgdown = FALSE
 )
 #> Creating package structure...
-#> ✔ Creating /tmp/RtmpyZEKzv/analysisPkg/.
-#> ✔ Setting active project to "/tmp/RtmpyZEKzv/analysisPkg".
+#> ✔ Creating /tmp/RtmpwwActA/analysisPkg/.
+#> ✔ Setting active project to "/tmp/RtmpwwActA/analysisPkg".
 #> ✔ Creating R/.
 #> ✔ Writing DESCRIPTION.
 #> Package: analysisPkg
@@ -191,13 +191,13 @@ mk_pkg(
 #> ✔ Adding ".Rproj.user" to .gitignore.
 #> ✔ Adding "^\\.Rproj\\.user$" to .Rbuildignore.
 #> ✔ Setting active project to "/home/runner/work/pkgmkr/pkgmkr".
-#> ✔ Setting active project to "/tmp/RtmpyZEKzv/analysisPkg".
+#> ✔ Setting active project to "/tmp/RtmpwwActA/analysisPkg".
 #> Setting up DESCRIPTION file...
 #> Creating README.md...
-#> ✔ Setting active project to "/tmp/RtmpyZEKzv/analysisPkg".
+#> ✔ Setting active project to "/tmp/RtmpwwActA/analysisPkg".
 #> ✔ Writing README.md.
 #> ☐ Update README.md to include installation instructions.
-#> ✔ Setting active project to "/tmp/RtmpyZEKzv/analysisPkg".
+#> ✔ Setting active project to "/tmp/RtmpwwActA/analysisPkg".
 #> Setting up GPL-3 license...
 #> ✔ Adding "GPL (>= 3)" to License.
 #> ✔ Writing LICENSE.md.
@@ -205,7 +205,7 @@ mk_pkg(
 #> 
 #> ============================================================
 #> SUCCESS! Package 'analysisPkg' created at:
-#> /tmp/RtmpyZEKzv/analysisPkg
+#> /tmp/RtmpwwActA/analysisPkg
 #> ============================================================
 #> ✔ Setting active project to "/home/runner/work/pkgmkr/pkgmkr".
 unlink(pkg_dir, recursive = TRUE)

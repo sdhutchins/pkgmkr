@@ -51,7 +51,7 @@ config <- list(
 )
 config_path <- tempfile(fileext = ".yml")
 write_config(config_path, config)
-#> Configuration written successfully to: /tmp/RtmpyZEKzv/file1b66fcfc9a7.yml
+#> Configuration written successfully to: /tmp/RtmpwwActA/file1a815158c781.yml
 
 # Verify the file was created
 import_config(config_path, "yaml")
