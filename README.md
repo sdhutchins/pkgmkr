@@ -2,10 +2,15 @@
 # pkgmkr
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.com/sdhutchins/pkgmkr.svg?branch=master)](https://travis-ci.org/sdhutchins/pkgmkr)
+[![R-CMD-check](https://github.com/sdhutchins/pkgmkr/actions/workflows/r-cmd-check.yaml/badge.svg?branch=main)](https://github.com/sdhutchins/pkgmkr/actions/workflows/r-cmd-check.yaml)
+[![pkgdown](https://github.com/sdhutchins/pkgmkr/actions/workflows/pkgdown.yaml/badge.svg?branch=main)](https://github.com/sdhutchins/pkgmkr/actions/workflows/pkgdown.yaml)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![r-universe](https://sdhutchins.r-universe.dev/badges/pkgmkr)](https://sdhutchins.r-universe.dev/pkgmkr)
 <!-- badges: end -->
 
-`pkgmkr` aims to simplify the process of creating R packages by providing a single, straightforward function. It is designed to be user-friendly and to handle various package configurations, including optional Git integration, license selection, and more.
+`pkgmkr` simplifies the process of creating R packages by providing a single, straightforward function.
+
+It is designed to be user-friendly and to handle various package configurations, including optional Git integration, license selection, and more.
 
 ## Features
 
@@ -20,21 +25,16 @@
 
 ## Installation
 
-In the future, you will be able to install the released version of pkgmkr from [CRAN](https://CRAN.R-project.org) with:
+Install `pkgmkr` from r-universe:
 
 ``` r
-install.packages("pkgmkr")
-```
-
-Currently, `pkgmkr` can only be installed using devtools.
-
-```r
-if (!requireNamespace("devtools", quietly = TRUE)) {
-  install.packages("devtools")
-}
-
-# Install pkgmkr from GitHub
-devtools::install_github("sdhutchins/pkgmkr")
+install.packages(
+  "pkgmkr",
+  repos = c(
+    "https://sdhutchins.r-universe.dev",
+    "https://cloud.r-project.org"
+  )
+)
 ```
 
 
@@ -102,17 +102,17 @@ config <- list(
 )
 
 # Write the configuration
-write_config("my_package_config.yaml", config)
+write_config("my_package_config.yml", config)
 
 # Create package from configuration
-mk_pkg_from_config("my_package_config.yaml", file_type = "yaml")
+mk_pkg_from_config("my_package_config.yml", file_type = "yaml")
 ```
 
 ## Parameters
 
-- `path`: Path where the package will be created (can be just a package name or full path)
-- `author`: Full name of the package author (e.g., "Jane Doe")
-- `email`: Email address of the author
+- `path`: Path where the package will be created (can be just a package name or full path) **[required]**
+- `author`: Full name of the package author (e.g., "Jane Doe") **[required]**
+- `email`: Email address of the author **[optional]** - if not provided, DESCRIPTION will not include maintainer email
 - `git`: Logical; whether to initialize a Git repository (default: `TRUE`)
 - `git_username`: Git username for repository configuration
 - `git_email`: Git email for repository configuration
@@ -135,4 +135,4 @@ All validation errors provide clear, helpful messages to guide you in fixing the
 
 ## Contributing
 
-Contributions are welcome! Please read the CONTRIBUTING.md for guidelines on how to contribute to this project.
+Contributions are welcome! Please read [CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines on how to contribute to this project.

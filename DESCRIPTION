@@ -1,20 +1,27 @@
 Package: pkgmkr
 Title: Create an R Package with One Simple Function
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
-    person(given = "Shaurita", family = "Hutchins", email = "shaurita.d.hutchins@gmail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-7687-0059"))
+    person(
+    given = "Shaurita D.", family = "Hutchins",
+    email = "shaurita.d.hutchins@gmail.com",
+    role = c("aut", "cre", "cph"),
+    comment = c(ORCID = "0000-0002-7687-0059")
+    )
 Description: Simplifies the process of creating R packages by providing a single,
     straightforward function that handles package initialization, Git integration,
     license selection, README generation, and pkgdown site setup. Package creation
     can also be configured using YAML or JSON configuration files.
 License: MIT + file LICENSE
+URL: https://shauritahutchins.com/pkgmkr/, https://github.com/sdhutchins/pkgmkr
+BugReports: https://github.com/sdhutchins/pkgmkr/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.3
 Imports:
     available,
     configr,
+    desc,
     fs,
     pkgdown,
     usethis,
@@ -23,4 +30,6 @@ Suggests:
     covr,
     knitr,
     rmarkdown,
-    testthat
+    testthat (>= 3.0.0)
+Config/Needs/website: rmarkdown, brand.yml
+Config/testthat/edition: 3

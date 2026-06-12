@@ -2,18 +2,37 @@
 % Please edit documentation in R/pkg_config.R
 \name{import_config}
 \alias{import_config}
-\title{Package Config}
+\title{Import Package Configuration}
 \usage{
 import_config(path, file_type = "yaml")
 }
 \arguments{
-\item{path}{character. The path to the configuration file.}
+\item{path}{character. Path to the configuration file. Must be a valid file path
+to an existing file.}
 
-\item{file_type}{character. The file type of the configuration file (either "yaml" or "json").}
+\item{file_type}{character. The file type - must be either "yaml" or "json".
+Default: "yaml".}
 }
 \value{
-A list containing the configuration data.
+A list containing the configuration data from the file.
 }
 \description{
-Import configuration data from a file.
+Import package configuration data from a YAML or JSON file.
+}
+\details{
+This function reads and validates a configuration file. The file must exist and
+contain valid YAML or JSON. If the file is malformed, a helpful error message
+will indicate the parsing issue.
+}
+\examples{
+# Write a temporary YAML config, then import it
+config_path <- tempfile(fileext = ".yml")
+writeLines("pkg_name: demopkg\nfirst_name: Jane\nlast_name: Doe", config_path)
+config <- import_config(config_path, "yaml")
+print(config$pkg_name)
+unlink(config_path)
+
+}
+\seealso{
+\code{\link{write_config}}, \code{\link{mk_pkg_from_config}}
 }

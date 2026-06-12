@@ -5,3 +5,9 @@
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^\.vscode$
+^[.]?air[.]toml$
+^vignettes/articles$
+^CONTRIBUTING\.md$
+^\.positai$
+^\.claude$
