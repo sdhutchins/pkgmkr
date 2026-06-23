@@ -9,16 +9,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/sdhutchins/pkgmkr/blob/v0.2.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/sdhutchins/pkgmkr/blob/main/DESCRIPTION)
 
 Hutchins S (2026). *pkgmkr: Create an R Package with One Simple
-Function*. R package version 0.2.0,
+Function*. R package version 0.2.1,
 <https://shauritahutchins.com/pkgmkr/>.
 
     @Manual{,
       title = {pkgmkr: Create an R Package with One Simple Function},
       author = {Shaurita D. Hutchins},
       year = {2026},
-      note = {R package version 0.2.0},
+      note = {R package version 0.2.1},
       url = {https://shauritahutchins.com/pkgmkr/},
     }

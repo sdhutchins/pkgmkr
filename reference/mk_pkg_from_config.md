@@ -60,14 +60,14 @@ config <- list(
   pkgdown = FALSE
 )
 write_config(config_path, config)
-#> Configuration written successfully to: /tmp/RtmpwwActA/pkg_config.yml
+#> Configuration written successfully to: /tmp/RtmpZbjEDK/pkg_config.yml
 
 # Create package from config
 withr::with_dir(tempdir(), mk_pkg_from_config(config_path, file_type = "yaml"))
-#> Creating package from config file: /tmp/RtmpwwActA/pkg_config.yml
+#> Creating package from config file: /tmp/RtmpZbjEDK/pkg_config.yml
 #> Creating package structure...
-#> ✔ Creating /tmp/RtmpwwActA/mypackage/.
-#> ✔ Setting active project to "/tmp/RtmpwwActA/mypackage".
+#> ✔ Creating /tmp/RtmpZbjEDK/mypackage/.
+#> ✔ Setting active project to "/tmp/RtmpZbjEDK/mypackage".
 #> ✔ Creating R/.
 #> ✔ Writing DESCRIPTION.
 #> Package: mypackage
@@ -87,13 +87,13 @@ withr::with_dir(tempdir(), mk_pkg_from_config(config_path, file_type = "yaml"))
 #> ✔ Adding ".Rproj.user" to .gitignore.
 #> ✔ Adding "^\\.Rproj\\.user$" to .Rbuildignore.
 #> ✔ Setting active project to "/home/runner/work/pkgmkr/pkgmkr".
-#> ✔ Setting active project to "/tmp/RtmpwwActA/mypackage".
+#> ✔ Setting active project to "/tmp/RtmpZbjEDK/mypackage".
 #> Setting up DESCRIPTION file...
 #> Creating README.md...
-#> ✔ Setting active project to "/tmp/RtmpwwActA/mypackage".
+#> ✔ Setting active project to "/tmp/RtmpZbjEDK/mypackage".
 #> ✔ Writing README.md.
 #> ☐ Update README.md to include installation instructions.
-#> ✔ Setting active project to "/tmp/RtmpwwActA/mypackage".
+#> ✔ Setting active project to "/tmp/RtmpZbjEDK/mypackage".
 #> Setting up MIT license...
 #> ✔ Adding "MIT + file LICENSE" to License.
 #> ✔ Writing LICENSE.
@@ -102,7 +102,7 @@ withr::with_dir(tempdir(), mk_pkg_from_config(config_path, file_type = "yaml"))
 #> 
 #> ============================================================
 #> SUCCESS! Package 'mypackage' created at:
-#> /tmp/RtmpwwActA/mypackage
+#> /tmp/RtmpZbjEDK/mypackage
 #> ============================================================
 #> ✔ Setting active project to "/home/runner/work/pkgmkr/pkgmkr".
 unlink(file.path(tempdir(), "mypackage"), recursive = TRUE)
