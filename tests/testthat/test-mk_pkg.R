@@ -156,6 +156,42 @@ test_that("mk_pkg validates email format when provided", {
   )
 })
 
+test_that("mk_pkg accepts valid email addresses with surrounding whitespace", {
+  skip_on_cran()
+
+  tmp_dir <- withr::local_tempdir()
+  pkg_path <- file.path(tmp_dir, "trimmedemail")
+
+  result <- mk_pkg(
+    path = pkg_path,
+    author = "Test Author",
+    email = "  test@example.com  ",
+    git = FALSE,
+    readme_md = FALSE,
+    check_pkg_name = FALSE,
+    license = "MIT",
+    pkgdown = FALSE
+  )
+
+  expect_true(result$success)
+
+  description_text <- readLines(file.path(pkg_path, "DESCRIPTION"), warn = FALSE)
+  expect_true(any(grepl("test@example.com", description_text, fixed = TRUE)))
+})
+
+test_that("mk_pkg rejects non-scalar email input explicitly", {
+  tmp_dir <- withr::local_tempdir()
+
+  expect_error(
+    mk_pkg(
+      path = file.path(tmp_dir, "vectoremailpkg"),
+      author = "Test Author",
+      email = c("test@example.com", "other@example.com")
+    ),
+    "single character string"
+  )
+})
+
 # Test that email is optional
 test_that("mk_pkg works without email", {
   skip_on_cran()

@@ -53,8 +53,24 @@ validate_inputs <- function(path, author, email, license) {
   }
 
   # Validate email format if provided (optional parameter, validate last)
-  if (!missing(email) && !is.null(email) && email != "") {
-    if (!grepl("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", email)) {
+  if (!missing(email) && !is.null(email)) {
+    if (!is.character(email) || length(email) != 1) {
+      stop(
+        "'email' must be a single character string when provided.",
+        call. = FALSE
+      )
+    }
+
+    normalized_email <- trimws(email)
+
+    if (normalized_email == "") {
+      stop(
+        "'email' cannot be only whitespace when provided.",
+        call. = FALSE
+      )
+    }
+
+    if (!grepl("^[^@[:space:]]+@[^@[:space:]]+\\.[^@[:space:]]+$", normalized_email)) {
       stop(
         "'email' must be a valid email address (e.g., user@example.com).",
         call. = FALSE
@@ -223,6 +239,15 @@ mk_pkg <- function(
 
   # Input validation
   validate_inputs(path, author, email, license)
+
+  # Normalize optional email once after validation so downstream metadata uses
+  # the same clean value the validator accepted.
+  if (!is.null(email)) {
+    email <- trimws(email)
+    if (identical(email, "")) {
+      email <- NULL
+    }
+  }
 
   # Extract package name from path
   pkg_name <- basename(path)
