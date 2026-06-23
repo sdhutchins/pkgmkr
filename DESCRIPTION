@@ -1,6 +1,6 @@
 Package: pkgmkr
 Title: Create an R Package with One Simple Function
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: 
     person(
     given = "Shaurita D.", family = "Hutchins",

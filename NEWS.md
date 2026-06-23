@@ -1,3 +1,14 @@
+# pkgmkr 0.2.1
+
+Maintenance release focused on input-validation correctness.
+
+## Validation and Reliability
+
+- Fixed `mk_pkg()` email validation so valid addresses are accepted reliably
+  under base R's regex engine.
+- Normalized surrounding email whitespace before validation and writing package
+  metadata.
+
 # pkgmkr 0.2.0
 
 Maintenance release focused on package infrastructure, documentation, and site
